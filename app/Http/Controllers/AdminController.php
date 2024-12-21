@@ -19,6 +19,11 @@ class AdminController extends Controller
         $request->session()->invalidate(); // 현재 세션 무효화
         $request->session()->regenerateToken(); // CSRF 토큰 새로 생성
 
-        return redirect('/login'); // 해당 경로로 보냄
+        return redirect('/admin/login'); // 해당 경로로 보냄
+    }
+
+    public function AdminLogin(Request $request)
+    {
+        return view('admin.admin_login');
     }
 }
