@@ -46,7 +46,8 @@
 
             <h6 class="card-title">Profile Update</h6>
 
-            <form class="forms-sample" action="" method="post">
+            <form class="forms-sample" action="{{ route('admin.profile.update') }}" method="post">
+              @csrf
               <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control"placeholder="Name" name="name">
@@ -58,6 +59,10 @@
               <div class="mb-3">
                 <label class="form-label">Email address</label>
                 <input type="email" class="form-control" placeholder="Email" name="email">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="text" class="form-control" placeholder="Pone" name="phone">
               </div>
               <div class="mb-3">
                 <label class="form-label">Password</label>

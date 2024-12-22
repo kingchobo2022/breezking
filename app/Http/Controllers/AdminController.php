@@ -32,6 +32,11 @@ class AdminController extends Controller
         return view('admin.admin_profile');
     }
 
-
+    public function AdminProfileUpdate(Request $request)
+    {
+        dd($request->all());
+    }
 }
+
+
 
