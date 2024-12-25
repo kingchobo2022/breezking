@@ -2,6 +2,8 @@
 @section('admin')
 <div class="page-content">
 
+  @include('inc_message')
+
   <div class="row profile-body">
     <!-- left wrapper start -->
     <div class="d-none d-md-block col-md-4 col-xl-3 left-wrapper">
@@ -46,39 +48,44 @@
 
             <h6 class="card-title">Profile Update</h6>
 
-            <form class="forms-sample" action="{{ route('admin.profile.update') }}" method="post">
+            <form class="forms-sample" action="{{ route('admin.profile.update') }}" method="post" enctype="multipart/form-data">
               @csrf
               <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control"placeholder="Name" name="name">
+                <input type="text" class="form-control"placeholder="Name" name="name" value="{{ $adminRow->name }}">
               </div>
               <div class="mb-3">
                 <label class="form-label">Username</label>
-                <input type="text" class="form-control"placeholder="Username" name="username">
+                <input type="text" class="form-control"placeholder="Username" name="username" value="{{ $adminRow->username }}">
               </div>
               <div class="mb-3">
                 <label class="form-label">Email address</label>
-                <input type="email" class="form-control" placeholder="Email" name="email">
+                <input type="email" class="form-control" placeholder="Email" name="email" value="{{ $adminRow->email }}">
+                <span class="text-danger">{{ $errors->first('email') }}</span>
               </div>
               <div class="mb-3">
                 <label class="form-label">Phone</label>
-                <input type="text" class="form-control" placeholder="Pone" name="phone">
+                <input type="text" class="form-control" placeholder="Pone" name="phone" value="{{ $adminRow->phone }}">
               </div>
               <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input type="password" class="form-control" placeholder="Password" name="password">
+                ( 비밀번호를 변경하지 않으시려면 이 곳을 빈 상태로 유지해 주세요. )
               </div>
               <div class="mb-3">
                 <label class="form-label">Profile Image</label>
                 <input type="file" class="form-control" name="photo">
+                @if( !empty($adminRow->photo) )
+                <img src="{{ asset('upload/'. $adminRow->photo ) }}" class="mt-2 w-50">
+                @endif
               </div>
               <div class="mb-3">
                 <label class="form-label">About</label>
-                <textarea class="form-control" placeholder="about" name="about"></textarea>
+                <textarea class="form-control" placeholder="about" name="about">{{ $adminRow->name }}</textarea>
               </div>
               <div class="mb-3">
                 <label class="form-label">Website</label>
-                <input type="text" class="form-control" placeholder="Website" name="website">
+                <input type="text" class="form-control" placeholder="Website" name="website" value="{{ $adminRow->website }}">
               </div>
 
               <button type="submit" class="btn btn-primary me-2">Submit</button>
