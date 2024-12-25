@@ -12,26 +12,30 @@
           <div class="d-flex align-items-center justify-content-between mb-2">
             <h6 class="card-title mb-0">About</h6>
           </div>
-          <p>Hi! I'm Amiah the Senior UI Designer at NobleUI. We hope you enjoy the design and quality of Social.</p>
+          <p>{{ Auth::user()->about  }}</p>
           <div class="mt-3">
             <label class="tx-11 fw-bolder mb-0 text-uppercase">Name:</label>
-            <p class="text-muted">Admin Tom</p>
+            <p class="text-muted">{{ Auth::user()->name }}</p>
+          </div>
+          <div class="mt-3">
+            <label class="tx-11 fw-bolder mb-0 text-uppercase">UserName:</label>
+            <p class="text-muted">{{ Auth::user()->username }}</p>
           </div>
           <div class="mt-3">
             <label class="tx-11 fw-bolder mb-0 text-uppercase">Joined:</label>
-            <p class="text-muted">November 15, 2015</p>
+            <p class="text-muted">{{ date('Y년 m월 d일', strtotime(Auth::user()->created_at)) }}</p>
           </div>
           <div class="mt-3">
             <label class="tx-11 fw-bolder mb-0 text-uppercase">Lives:</label>
-            <p class="text-muted">New York, USA</p>
+            <p class="text-muted">{{ Auth::user()->address  }}</p>
           </div>
           <div class="mt-3">
             <label class="tx-11 fw-bolder mb-0 text-uppercase">Email:</label>
-            <p class="text-muted">me@nobleui.com</p>
+            <p class="text-muted">{{ Auth::user()->email }}</p>
           </div>
           <div class="mt-3">
             <label class="tx-11 fw-bolder mb-0 text-uppercase">Website:</label>
-            <p class="text-muted">www.nobleui.com</p>
+            <p class="text-muted">{{ Auth::user()->website  }}</p>
           </div>
         </div>
       </div>
@@ -76,8 +80,12 @@
                 <label class="form-label">Profile Image</label>
                 <input type="file" class="form-control" name="photo">
                 @if( !empty($adminRow->photo) )
-                <img src="{{ asset('upload/'. $adminRow->photo ) }}" class="mt-2 w-50">
+                <img src="{{ asset('upload/'. $adminRow->photo ) }}" class="wd-80 ht-80 rounded-circle mt-2">
                 @endif
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input type="text" class="form-control" placeholder="Address" name="address" value="{{ $adminRow->address }}">
               </div>
               <div class="mb-3">
                 <label class="form-label">About</label>
