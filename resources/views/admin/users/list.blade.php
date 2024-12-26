@@ -47,13 +47,33 @@
                   <td>{{ $row->phone }}</td>
                   <td>{{ $row->website }}</td>
                   <td>{{ $row->address }}</td>
-                  <td>{{ $row->role }}</td>
-                  <td>{{ $row->status }}</td>
+                  <td>
+                    @if ($row->role == 'admin')
+                    <span class="badge bg-danger">{{ $row->role }}</span>    
+                    @elseif ($row->role == 'agent')
+                    <span class="badge bg-primary">{{ $row->role }}</span>
+                    @else
+                    <span class="badge bg-danger">{{ $row->role }}</span>
+                    @endif
+                    
+                  </td>
+                  <td>
+                    @if ($row->status == 'active')
+                      <span class="badge bg-danger">{{ $row->status }}</span>    
+                    @else
+                    <span class="badge bg-secondary">{{ $row->status }}</span>    
+                    @endif
+                    
+
+                  </td>
                   <td>{{ date('Y-m-d', strtotime($row->created_at) ) }}</td>
                 </tr>
                 @endforeach
               </tbody>
             </table>
+          </div>
+          <div class="mt-3">
+            {!! $usersRs->appends(Request::except('page'))->links()  !!}
           </div>
         </div>
       </div>
