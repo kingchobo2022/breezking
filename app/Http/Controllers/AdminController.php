@@ -68,6 +68,12 @@ class AdminController extends Controller
 
         return redirect('admin/profile')->with('success', '프로필을 성공적으로 업데이트 했습니다.');
     }
+
+    public function AdminUsers(Request $request)
+    {
+        $usersRs = User::getRecord();
+        return view('admin.users.list', compact('usersRs'));
+    }
 }
 
 
