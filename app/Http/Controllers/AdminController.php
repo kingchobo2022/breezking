@@ -13,7 +13,17 @@ class AdminController extends Controller
 
     public function AdminDashboard(Request $request) 
     {
-        return view('admin.index');
+        $user = User::selectRaw("count(id) as count, DATE_FORMAT(created_at, '%Y-%m') as month ")
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get(); // Eloquent 컬렉션 형태로 가져옴
+        ;
+
+        $months = $user->pluck('month'); // [ '2024-11', '2024-12' ]
+        $counts = $user->pluck('count'); // [ 3, 2, 2, 1 ]
+        
+
+        return view('admin.index', compact('months', 'counts')); // 
     }
 
     public function AdminLogout(Request $request)

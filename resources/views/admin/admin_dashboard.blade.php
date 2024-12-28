@@ -78,5 +78,7 @@
   <script src="{{ asset('assets/js/dashboard-dark.js') }}"></script>
 	<!-- End custom js for this page -->
 
+	@yield('script')
+
 </body>
 </html>                
