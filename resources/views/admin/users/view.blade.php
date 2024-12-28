@@ -8,7 +8,7 @@
     </ol>
   </nav>
   <div class="row">
-    <div class="col-md-6 grid-margin stretch-card">
+    <div class="col-md-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
 
@@ -16,27 +16,87 @@
 
           <form class="forms-sample">
             <div class="row mb-3">
+              <label for="exampleInputUsername2" class="col-sm-3 col-form-label">ID</label>
+              <div class="col-sm-9">
+                {{ $userRow->id }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="exampleInputUsername2" class="col-sm-3 col-form-label">name</label>
+              <div class="col-sm-9">
+                {{ $userRow->name }}
+              </div>
+            </div>
+            <div class="row mb-3">
               <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Username</label>
               <div class="col-sm-9">
-                
+                {{ $userRow->username }}
               </div>
             </div>
             <div class="row mb-3">
               <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Email</label>
               <div class="col-sm-9">
-                
+                {{ $userRow->email }}
               </div>
             </div>
             <div class="row mb-3">
-              <label for="exampleInputMobile" class="col-sm-3 col-form-label">Mobile</label>
+              <label for="exampleInputMobile" class="col-sm-3 col-form-label">Phone</label>
               <div class="col-sm-9">
-                
+                {{ $userRow->Phone }}
               </div>
             </div>
             <div class="row mb-3">
-              <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Password</label>
+              <label for="exampleInputMobile" class="col-sm-3 col-form-label">Photo</label>
               <div class="col-sm-9">
-                
+                @if( !empty($userRow->photo) )
+                <img src="{{ asset('upload/'. $userRow->photo ) }}" class="wd-80 ht-80 rounded-circle">
+                @endif
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Role</label>
+              <div class="col-sm-9">
+                @if ($userRow->role == 'admin')
+                <span class="badge bg-danger">{{ $userRow->role }}</span>    
+                @elseif ($row->role == 'agent')
+                <span class="badge bg-primary">{{ $userRow->role }}</span>
+                @else
+                <span class="badge bg-danger">{{ $userRow->role }}</span>
+                @endif
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="exampleInputMobile" class="col-sm-3 col-form-label">Status</label>
+              <div class="col-sm-9">
+                @if ($userRow->status == 'active')
+                  <span class="badge bg-danger">{{ $userRow->status }}</span>    
+                @else
+                  <span class="badge bg-secondary">{{ $userRow->status }}</span>    
+                @endif
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="exampleInputMobile" class="col-sm-3 col-form-label">Address</label>
+              <div class="col-sm-9">
+                {{ $userRow->address }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="exampleInputMobile" class="col-sm-3 col-form-label">About</label>
+              <div class="col-sm-9">
+                {{ $userRow->About }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="exampleInputMobile" class="col-sm-3 col-form-label">등록일시</label>
+              <div class="col-sm-9">
+                {{ date('Y년 m월 d일 H시 i분', strtotime($userRow->created_at) ) }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="exampleInputMobile" class="col-sm-3 col-form-label">수정일시</label>
+              <div class="col-sm-9">
+                {{ date('Y년 m월 d일 H시 i분', strtotime($userRow->updated_at) ) }}
               </div>
             </div>
             
