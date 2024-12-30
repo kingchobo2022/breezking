@@ -1,6 +1,7 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 <div class="page-content">
+  @include('inc_message')
   <div class="row inbox-wrapper">
     <div class="col-lg-12">
       <div class="card">
@@ -99,8 +100,11 @@
                   <div class="row mb-3">
                     <label class="col-md-2 col-form-label">To:</label>
                     <div class="col-md-10">
-                      <select class="compose-multiple-select form-select" name="email">
-                        <option value="AL">Alabama</option>
+                      <select class="compose-multiple-select form-select" name="user_id">
+                        <option value="">Select Email</option>
+                        @foreach($rsEmail as $row)
+                        <option value="{{ $row->id }}">{{ $row->email }}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
