@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ComposeEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ComposeEmailMail;
 
 class EmailController extends Controller
 {
@@ -23,6 +25,14 @@ class EmailController extends Controller
         $compose->subject = trim($request->subject);
         $compose->descriptions = trim($request->descriptions);
         $compose->save();
+
+        // 메일 발송 (시작)
+        $getUserEmail = User::where('id', '=', $request->user_id)->first();
+        Mail::to($getUserEmail->email)
+            ->cc($request->cc_email)
+            ->send(new ComposeEmailMail($compose));
+        // 메일 발송 (끝)
+
 
         return redirect('admin/email/compose')->with('success', '이메일을 발송했습니다.');
     }
