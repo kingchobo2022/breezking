@@ -36,4 +36,10 @@ class EmailController extends Controller
 
         return redirect('admin/email/compose')->with('success', '이메일을 발송했습니다.');
     }
+
+    public function EmailSent(Request $request)
+    {
+        $rs = ComposeEmail::get();
+        return view('admin.email.sent', compact('rs'));
+    }
 }
