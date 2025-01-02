@@ -42,4 +42,19 @@ class EmailController extends Controller
         $rs = ComposeEmail::get();
         return view('admin.email.sent', compact('rs'));
     }
+
+    public function AdminEmailSentDelete(Request $request) 
+    {
+        if (!empty($request->id)) {
+          $option = explode(',', $request->id);
+          foreach($option as $id)      
+          {
+            if (!empty($id)) {
+                $getRecord = ComposeEmail::find($id);
+                $getRecord->delete();
+            }
+          }
+        }
+        return redirect()->back()->with('success', '발송 메일이 정상적으로 삭제되었습니다.');
+    }
 }

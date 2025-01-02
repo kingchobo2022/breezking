@@ -1,6 +1,7 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 <div class="page-content">
+  @include('inc_message') 
   <div class="row inbox-wrapper">
     <div class="col-lg-12">
       <div class="card">
@@ -117,7 +118,7 @@
                   <div class="btn-group me-2">
                     <button class="btn btn-outline-primary" type="button">Archive</button>
                     <button class="btn btn-outline-primary" type="button">Span</button>
-                    <button class="btn btn-outline-primary" type="button">Delete</button>
+                    <a href="" onclick="return confirm('삭제를 하시겠습니까?')" class="btn btn-outline-primary" id="getDeleteURL">Delete</a>
                   </div>
                   <div class="btn-group me-2 d-none d-xl-block">
                     <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" type="button">Order by <span class="caret"></span></button>
@@ -145,7 +146,7 @@
                 <div class="email-list-item email-list-item--unread">
                   <div class="email-list-actions">
                     <div class="form-check">
-                      <input type="checkbox" class="form-check-input">
+                      <input type="checkbox" class="form-check-input delete-all-option" value="{{ $row->id }}">
                     </div>
                     <a class="favorite" href="javascript:;"><span><i data-feather="star"></i></span></a>
                   </div>
@@ -167,8 +168,25 @@
           
         </div>
       </div>
-    </div>
+    </div> 
   </div>
 
 </div>
+@endsection
+
+@section('script')
+<script>
+  $('.delete-all-option').change(function(){
+    var total = '';
+    $('.delete-all-option').each(function(){
+      if ( this.checked ) {
+        var id = $(this).val();
+        total += id + ',';
+      }
+    });
+    var url = "{{ url('admin/email/delete?id=') }}" + total;
+    $('#getDeleteURL').attr('href', url);
+  });
+  
+</script>
 @endsection
