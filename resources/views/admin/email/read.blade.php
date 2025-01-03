@@ -94,7 +94,7 @@
                 <div>
                   <a class="me-2" type="button" data-bs-toggle="tooltip" data-bs-title="Forward"><i data-feather="share" class="text-muted icon-lg"></i></a>
                   <a class="me-2" type="button" data-bs-toggle="tooltip" data-bs-title="Print"><i data-feather="printer" class="text-muted icon-lg"></i></a>
-                  <a href="{{ url('admin/email/read_delete/'. $row->id)  }}" data-bs-toggle="tooltip" data-bs-title="Delete"><i data-feather="trash" class="text-muted icon-lg"></i></a>
+                  <a href="{{ url('admin/email/read_delete/'. $row->id) }}" data-bs-toggle="tooltip" data-bs-title="Delete"><i data-feather="trash" class="text-muted icon-lg"></i></a>
                 </div>
               </div>
               <div class="d-flex align-items-center justify-content-between flex-wrap px-3 py-2 border-bottom">
@@ -123,6 +123,7 @@
               <div class="p-4 border-bottom">
                 <p>{{ $row->descriptions }}</p>
               </div>
+              
             </div>
           </div>
             
