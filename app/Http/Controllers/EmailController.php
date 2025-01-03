@@ -57,4 +57,17 @@ class EmailController extends Controller
         }
         return redirect()->back()->with('success', '발송 메일이 정상적으로 삭제되었습니다.');
     }
+
+    public function AdminEmailRead($id, Request $request)
+    {
+        $row = ComposeEmail::find($id);
+        return view('admin.email.read', compact('row')); 
+    }
+
+    public function AdminEmailReadDelete($id, Request $request)
+    {
+        $row = ComposeEmail::find($id);
+        $row->delete();
+        return redirect('admin/email/sent')->with('success', '발송 메일이 정상적으로 삭제되었습니다.');
+    }
 }

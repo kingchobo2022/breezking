@@ -150,7 +150,7 @@
                     </div>
                     <a class="favorite" href="javascript:;"><span><i data-feather="star"></i></span></a>
                   </div>
-                  <a href="./read.html" class="email-list-detail">
+                  <a href="{{ url('admin/email/read/'. $row->id) }}" class="email-list-detail">
                     <div class="content">
                       <span class="from">{{ $row->subject }}</span>
                       <p class="msg">{{ $row->descriptions  }}</p>
