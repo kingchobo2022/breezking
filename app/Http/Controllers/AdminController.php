@@ -81,7 +81,7 @@ class AdminController extends Controller
 
     public function AdminUsers(Request $request)
     {
-        $usersRs = User::getRecord();
+        $usersRs = User::getRecord($request);
         return view('admin.users.list', compact('usersRs'));
     }
 

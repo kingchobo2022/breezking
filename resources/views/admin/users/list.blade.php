@@ -9,6 +9,81 @@
     </ol>
   </nav>
 
+  {{-- Search Box Start --}}
+  <div class="row mb-3">
+    <div class="col-lg-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="cart-title">Search Users</h6>
+          <form action="" method="get">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label">Id</label>
+                  <input type="text" name="id" value="{{ Request()->id }}" class="form-control" placeholder="Enter Id">
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input type="text" name="name" value="{{ Request()->name }}" class="form-control" placeholder="Enter Name">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Username</label>
+                  <input type="text" name="username" value="{{ Request()->username }}" class="form-control" placeholder="Enter Username">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" name="email" value="{{ Request()->email }}" class="form-control" placeholder="Enter Email">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label">Phone</label>
+                  <input type="text" name="phone" value="{{ Request()->phone }}" class="form-control" placeholder="Enter Phone">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label class="form-label">Website</label>
+                  <input type="text" name="website" value="{{ Request()->website }}" class="form-control" placeholder="Enter Website">
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="mb-3">
+                  <label class="form-label">Role</label>
+                  <select name="role" class="form-control">
+                    <option value="">Select Role</option>
+                    <option value="admin" {{ Request()->role == 'admin' ? 'selected':'' }}>admin</option>
+                    <option value="agent" {{ Request()->role == 'agent' ? 'selected':'' }}>agent</option>
+                    <option value="user" {{ Request()->role == 'user' ? 'selected':'' }}>user</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="mb-3">
+                  <label class="form-label">Status</label>
+                  <select name="status" class="form-control">
+                    <option value="">Select Status</option>
+                    <option value="active" {{ Request()->status == 'active' ? 'selected':'' }}>active</option>
+                    <option value="inactive" {{ Request()->status == 'inactive' ? 'selected':'' }}>inactive</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary me-2">Search</button>
+            <a href="{{ url('admin/users') }}" class="btn btn-danger">Reset</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- Search Box End --}}
 
   <div class="row">
     <div class="col-lg-12 stretch-card">
@@ -34,7 +109,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($usersRs as $row)
+                @forelse($usersRs as $row)
                 <tr class="table-info text-dark">
                   <td>{{ $row->id }}</td>
                   <td>{{ $row->name }}</td>
@@ -70,7 +145,11 @@
                   <td>{{ date('Y-m-d', strtotime($row->created_at) ) }}</td>
                   <td><a class="dropdown-item d-flex align-items-center" href="{{ url('admin/users/view/'. $row->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm me-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span class="">보기</span></a></td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="100%">검색결과가 존재하지 않습니다.</td>                    
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>
