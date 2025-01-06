@@ -90,6 +90,11 @@ class AdminController extends Controller
         $userRow = User::find($id);
         return view('admin.users.view', compact('userRow'));
     }
+
+    public function AdminAddUser(Request $request)
+    {
+        return view('admin.users.add');
+    }
 }
 
 
