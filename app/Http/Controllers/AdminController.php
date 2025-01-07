@@ -95,6 +95,30 @@ class AdminController extends Controller
     {
         return view('admin.users.add');
     }
+
+    public function AdminAddUserStore(Request $request)
+    {
+        // 검증
+        $user = request()->validate([
+            'name' => 'required',
+            'email'=> 'required|unique:users',
+            'role' => 'required',
+            'status'=> 'required'
+        ]);
+
+        // 저장
+        $user = new User;
+        $user->name = trim($request->name);
+        $user->username = trim($request->username);
+        $user->email = trim($request->email);
+        $user->phone = trim($request->phone);
+        $user->role = $request->role;
+        $user->status = $request->status;
+        $user->save();
+
+        // 페이지 전환,  플래시 메시지 생성
+        return redirect('admin/users')->with('success', '유저가 정상적으로 등록되었습니다');
+    }
 }
 
 

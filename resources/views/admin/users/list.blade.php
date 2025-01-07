@@ -1,7 +1,7 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 <div class="page-content">
-
+  @include('inc_message')
   <nav class="page-breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="#">유저</a></li>

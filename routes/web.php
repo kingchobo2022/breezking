@@ -30,6 +30,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('admin/users', [AdminController::class, 'AdminUsers'])->name('admin.users');
     Route::get('admin/users/view/{id}', [AdminController::class, 'AdminUsersView'])->name('admin.users.view');
     Route::get('admin/users/add', [AdminController::class, 'AdminAddUser'])->name('admin.users.adduser');
+    Route::post('admin/users/add', [AdminController::class, 'AdminAddUserStore'])->name('admin.users.adduser.store');
 
     Route::get('admin/email/compose', [EmailController::class, 'EmailCompose'])->name('admin.email.compose');
     Route::post('admin/email/compose_post', [EmailController::class, 'EmailComposePost'])->name('admin.email.compose.post');
