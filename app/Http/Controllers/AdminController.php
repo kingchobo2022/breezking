@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegisteredMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -114,7 +116,12 @@ class AdminController extends Controller
         $user->phone = trim($request->phone);
         $user->role = $request->role;
         $user->status = $request->status;
+        $user->remember_token = Str::random(50);
         $user->save();
+
+        // 인증 메일 발송
+        Mail::to($user->email)->send(new RegisteredMail($user));
+
 
         // 페이지 전환,  플래시 메시지 생성
         return redirect('admin/users')->with('success', '유저가 정상적으로 등록되었습니다');
