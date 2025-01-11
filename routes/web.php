@@ -22,22 +22,24 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'role:admin'])->group(function(){
-    Route::get('admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
-    Route::get('admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
-    Route::get('admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
-    Route::post('admin/profile/update',[AdminController::class, 'AdminProfileUpdate'])->name('admin.profile.update');
-    Route::get('admin/users', [AdminController::class, 'AdminUsers'])->name('admin.users');
-    Route::get('admin/users/view/{id}', [AdminController::class, 'AdminUsersView'])->name('admin.users.view');
-    Route::get('admin/users/add', [AdminController::class, 'AdminAddUser'])->name('admin.users.adduser');
-    Route::post('admin/users/add', [AdminController::class, 'AdminAddUserStore'])->name('admin.users.adduser.store');
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
+    Route::get('dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+    Route::get('logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+    Route::get('profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+    Route::post('profile/update',[AdminController::class, 'AdminProfileUpdate'])->name('admin.profile.update');
+    Route::get('users', [AdminController::class, 'AdminUsers'])->name('admin.users');
+    Route::get('users/view/{id}', [AdminController::class, 'AdminUsersView'])->name('admin.users.view');
+    Route::get('users/add', [AdminController::class, 'AdminAddUser'])->name('admin.users.adduser');
+    Route::get('users/edit/{id}', [AdminController::class, 'AdminEditUser'])->name('admin.users.edit');
+    Route::post('users/edit/{id}', [AdminController::class, 'AdminUpdateUser'])->name('admin.users.update');
+    Route::post('users/add', [AdminController::class, 'AdminAddUserStore'])->name('admin.users.adduser.store');
 
-    Route::get('admin/email/compose', [EmailController::class, 'EmailCompose'])->name('admin.email.compose');
-    Route::post('admin/email/compose_post', [EmailController::class, 'EmailComposePost'])->name('admin.email.compose.post');
-    Route::get('admin/email/sent', [EmailController::class, 'EmailSent'])->name('admin.email.sent');
-    Route::get('admin/email/delete', [EmailController::class, 'AdminEmailSentDelete'])->name('admin.email.sent.delete');
-    Route::get('admin/email/read/{id}', [EmailController::class, 'AdminEmailRead'])->name('admin.email.read');
-    Route::get('admin/email/read_delete/{id}', [EmailController::class, 'AdminEmailReadDelete'])->name('admin.email.read.delete');
+    Route::get('email/compose', [EmailController::class, 'EmailCompose'])->name('admin.email.compose');
+    Route::post('email/compose_post', [EmailController::class, 'EmailComposePost'])->name('admin.email.compose.post');
+    Route::get('email/sent', [EmailController::class, 'EmailSent'])->name('admin.email.sent');
+    Route::get('email/delete', [EmailController::class, 'AdminEmailSentDelete'])->name('admin.email.sent.delete');
+    Route::get('email/read/{id}', [EmailController::class, 'AdminEmailRead'])->name('admin.email.read');
+    Route::get('email/read_delete/{id}', [EmailController::class, 'AdminEmailReadDelete'])->name('admin.email.read.delete');
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

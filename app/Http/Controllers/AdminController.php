@@ -148,6 +148,25 @@ class AdminController extends Controller
 
         return redirect('admin/login')->with('success', 'New Passowrd has been set.');
     }
+
+    public function AdminEditUser($id)
+    {
+        $row = User::find($id);
+        return view('admin.users.edit', compact('row'));
+    }
+
+    public function AdminUpdateUser($id, Request $request)
+    {
+        $user = User::find($id);
+        $user->name = trim($request->name);
+        $user->username = trim($request->username);
+        $user->phone = trim($request->phone);
+        $user->role = $request->role;
+        $user->status = $request->status;
+        $user->save();
+
+        return redirect('admin/users')->with('success', '유저 정보가 정상적으로 수정되었습니다.');
+    }
 }
 
 
