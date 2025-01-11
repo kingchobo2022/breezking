@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ResetPasswordRequest;
 use App\Mail\RegisteredMail;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -125,6 +126,27 @@ class AdminController extends Controller
 
         // 페이지 전환,  플래시 메시지 생성
         return redirect('admin/users')->with('success', '유저가 정상적으로 등록되었습니다');
+    }
+
+    public function SetNewPassword($token)
+    {
+        return view('auth.my_reset_password', compact('token'));
+    }
+
+    public function SetNewPasswordPost($token, ResetPasswordRequest $request)
+    {
+        $users = User::where('remember_token', '=', $token);
+        if ($users->count() == 0) {
+            abort(403);
+        }
+
+        $user = $users->first();
+        $user->password = Hash::make($request->password);
+        $user->remember_token = Str::random(50);
+        $user->status = 'active';
+        $user->save();
+
+        return redirect('admin/login')->with('success', 'New Passowrd has been set.');
     }
 }
 
