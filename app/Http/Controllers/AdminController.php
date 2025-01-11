@@ -167,6 +167,16 @@ class AdminController extends Controller
 
         return redirect('admin/users')->with('success', '유저 정보가 정상적으로 수정되었습니다.');
     }
+
+    public function AdminDeleteSoft($id)
+    {
+        // Soft Delete
+        $softDelete = User::find($id);
+        $softDelete->is_delete = 1;
+        $softDelete->save();
+
+        return redirect('admin/users')->with('success', '유저 정보가 임시 삭제되었습니다.');
+    }
 }
 
 

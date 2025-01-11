@@ -44,7 +44,9 @@ class User extends Authenticatable
     }
 
     static public function getRecord() {
-        $return = self::select('*')->orderBy('id', 'asc');
+        $return = self::select('*')
+                ->where('is_delete', '=', 0)
+                ->orderBy('id', 'asc');
 
         if (!empty(Request::get('id'))){
             $return = $return->where('users.id', '=', Request::get('id'));
