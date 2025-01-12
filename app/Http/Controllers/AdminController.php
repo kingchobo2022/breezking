@@ -84,8 +84,14 @@ class AdminController extends Controller
 
     public function AdminUsers(Request $request)
     {
-        $usersRs = User::getRecord($request);
-        return view('admin.users.list', compact('usersRs'));
+        $data['usersRs'] = User::getRecord($request);
+        $data['totalAdmin'] = User::where('role', '=', 'admin')->where('is_delete', '=', 0)->count();
+        $data['totalAgent'] = User::where('role', '=', 'agent')->where('is_delete', '=', 0)->count();
+        $data['totalUser'] = User::where('role', '=', 'user')->where('is_delete', '=', 0)->count();
+        $data['totalActive'] = User::where('status', '=', 'active')->where('is_delete', '=', 0)->count();
+        $data['totalInActive'] = User::where('status', '=', 'inactive')->where('is_delete', '=', 0)->count();
+        $data['total'] = User::where('is_delete', '=', 0)->count();
+        return view('admin.users.list', $data);
     }
 
     public function AdminUsersView($id)

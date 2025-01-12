@@ -7,6 +7,14 @@
       <li class="breadcrumb-item"><a href="#">유저</a></li>
       <li class="breadcrumb-item active" aria-current="page">유저목록</li>
     </ol>
+    <div class="d-flex align-items-center">
+      <a href="" class="btn btn-info me-1">{{ $totalAdmin }} Admin</a>
+      <a href="" class="btn btn-success me-1">{{ $totalAgent }} Agent</a>
+      <a href="" class="btn btn-danger me-1">{{ $totalUser }} User</a>
+      <a href="" class="btn btn-warning me-1">{{ $totalActive }} Active</a>
+      <a href="" class="btn btn-secondary me-1">{{ $totalInActive }} In Active</a>
+      <a href="" class="btn btn-primary me-1">{{ $total }} Total</a>
+    </div>
   </nav>
 
   {{-- Search Box Start --}}
@@ -74,6 +82,22 @@
                   </select>
                 </div>
               </div>
+
+              <div class="col-sm-2">
+                <div class="mb-3">
+                  <label class="form-label">Start Date</label>
+                  <input type="date" name="start_date" value="{{ Request()->start_date }}" class="form-control" placeholder="Enter Start Date">
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="mb-3">
+                  <label class="form-label">End Date</label>
+                  <input type="date" name="end_date" value="{{ Request()->end_date }}" class="form-control" placeholder="Enter End Date">
+                </div>
+              </div>
+
+
             </div>
             <button type="submit" class="btn btn-primary me-2">Search</button>
             <a href="{{ url('admin/users') }}" class="btn btn-danger">Reset</a>
@@ -152,7 +176,7 @@
                   <td>{{ date('Y-m-d', strtotime($row->created_at) ) }}</td>
                   <td><a class="dropdown-item d-flex align-items-center" href="{{ url('admin/users/view/'. $row->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm me-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span class="">보기</span></a>
                     <a class="dropdown-item d-flex align-items-center" href="{{ url('admin/users/edit/'. $row->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm me-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> <span class="">수정</span></a>
-                    <a class="dropdown-item d-flex align-items-center" href="{{ url('admin/users/delete/'. $row->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash icon-sm me-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> <span class="">삭제</span></a>                    
+                    <a class="dropdown-item d-flex align-items-center" href="{{ url('admin/users/delete/'. $row->id) }}" onclick="return confirm('삭제하시겠습니까?')"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash icon-sm me-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> <span class="">삭제</span></a>                    
                   
                   </td>
                 </tr>
