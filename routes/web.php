@@ -33,6 +33,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('users/edit/{id}', [AdminController::class, 'AdminEditUser'])->name('admin.users.edit');
     Route::post('users/edit/{id}', [AdminController::class, 'AdminUpdateUser'])->name('admin.users.update');
     Route::get('users/delete/{id}', [AdminController::class, 'AdminDeleteSoft'])->name('admin.users.delete.soft');
+    Route::post('users/update_name', [AdminController::class, 'AdminUpdateNameUser']);
 
     Route::post('users/add', [AdminController::class, 'AdminAddUserStore'])->name('admin.users.adduser.store');
 

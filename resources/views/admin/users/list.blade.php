@@ -1,5 +1,6 @@
 @extends('admin.admin_dashboard')
 @section('admin')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="page-content">
   @include('inc_message')
   <nav class="page-breadcrumb">
@@ -143,7 +144,10 @@
                 @forelse($usersRs as $row)
                 <tr class="table-info text-dark">
                   <td>{{ $row->id }}</td>
-                  <td>{{ $row->name }}</td>
+                  <td>
+                    <input type="text" value="{{ $row->name }}" class="form-control">
+                    <button class="btn btn-success mt-1 submitform" data-id="{{ $row->id }}">Save</button>
+                  </td>
                   <td>{{ $row->username }}</td>
                   <td>{{ $row->email }}</td>
                   <td>
@@ -199,4 +203,38 @@
 
 
 </div>
+@endsection
+
+@section('script')
+<script>
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  document.querySelectorAll('.submitform').forEach(button => {
+    button.addEventListener('click', function(){
+      const input = this.parentElement.querySelector('input.form-control');
+      const dataId= this.getAttribute('data-id');
+
+      if (input) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '{{ url('admin/users/update_name') }}', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+
+        // 전송할 데이터 정의
+        const params = `id=${encodeURIComponent(dataId)}&name=${encodeURIComponent(input.value)}`;
+        xhr.send(params);
+
+        // 요청이 성공적으로 완료된 경우 실행할 코드
+        xhr.onload = function() {
+          if (xhr.status == 200) {
+            //console.log("Response:", xhr.responseText); 
+            const json = JSON.parse(xhr.responseText);
+            alert(json.success);
+          } else {
+            console.log("Request failed. Status : ", xhr.status);
+          }
+        }
+      }
+    });
+  });
+</script>    
 @endsection

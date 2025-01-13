@@ -183,6 +183,15 @@ class AdminController extends Controller
 
         return redirect('admin/users')->with('success', '유저 정보가 임시 삭제되었습니다.');
     }
+
+    public function AdminUpdateNameUser(Request $request)
+    {
+        $user = User::find($request->input('id'));
+        $user->name = $request->input('name');
+        $user->save();
+        $json = ['success' => 'Data Update Succeefully!'];
+        echo json_encode($json);  
+    }
 }
 
 
