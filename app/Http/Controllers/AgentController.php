@@ -8,6 +8,6 @@ class AgentController extends Controller
 {
     public function AgentDashboard(Request $request)
     {
-        return view('agent.agent_dashboard');
+        return view('agent.index');
     }
 }
