@@ -169,11 +169,16 @@
                     
                   </td>
                   <td>
-                    @if ($row->status == 'active')
+                    {{-- @if ($row->status == 'active')
                       <span class="badge bg-danger">{{ $row->status }}</span>    
                     @else
                     <span class="badge bg-secondary">{{ $row->status }}</span>    
-                    @endif
+                    @endif --}}
+
+                    <select class="form-control changeStatus" data-id="{{ $row->id }}">
+                      <option value="active"   {{ $row->status == 'active'   ? 'selected' : '' }}>Active</option>
+                      <option value="inactive" {{ $row->status == 'inactive' ? 'selected' : '' }}>In Active</option>
+                    </select>
                     
 
                   </td>
@@ -232,6 +237,29 @@
           } else {
             console.log("Request failed. Status : ", xhr.status);
           }
+        }
+      }
+    });
+  });
+
+  const els = document.querySelectorAll('.changeStatus');
+  els.forEach(function (el) {
+    el.addEventListener("change", function() {
+      const dataId = this.getAttribute("data-id");
+
+      const xhr = new XMLHttpRequest();
+      const url = "{{ url('admin/users/change_status') }}";
+      const params = `?id=${encodeURIComponent(dataId)}&status=${encodeURIComponent(this.value)}`;
+      xhr.open("GET", url + params, true);
+      xhr.send();
+      
+      xhr.onload = function() {
+        if (xhr.status == 200) {
+          console.log("Response:", xhr.responseText);
+          const json = JSON.parse(xhr.responseText);
+          alert(json.success);
+        } else {
+          console.log("Response failed Status:", xhr.status);
         }
       }
     });

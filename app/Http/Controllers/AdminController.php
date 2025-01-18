@@ -189,10 +189,45 @@ class AdminController extends Controller
         $user = User::find($request->input('id'));
         $user->name = $request->input('name');
         $user->save();
-        $json = ['success' => 'Data Update Succeefully!'];
+        $json = ['success' => 'Data Update Successfully!'];
         echo json_encode($json);  
     }
+
+    public function AdminChangeStatus(Request $request)
+    {
+        $user = User::find($request->input('id'));
+        $user->status = $request->input('status');
+        $user->save(); 
+        $arr = ['success' => 'Data Update Successfully!'];
+        echo json_encode($arr);  // {"success" => "Data Update Successfully!"}
+    }
+
+    public function AdminMyProfile(Request $request)
+    {
+        $row = User::find(Auth::user()->id);
+        return view('admin.profile', compact('row'));
+    }
+
+    public function AdminMyProfileUpdate(Request $request)
+    {
+        $user = request()->validate([
+            'email' => 'required|unique:users,email,'.Auth::user()->id
+        ]);
+        $user = User::find(Auth::user()->id);
+        $user->name = trim($request->name);
+        $user->email= trim($request->email);
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        if ( $request->hasFile('photo') && $request->file('photo')->isValid() ) {
+            $file = $request->file('photo');
+            $randomStr = Str::random(30);
+            $filename = $randomStr .'.'. $file->getClientOriginalExtension();
+            $file->move('upload/', $filename);  
+            $user->photo = $filename; 
+        }
+
+        $user->save();
+        return redirect('admin/my_profile')->with('success', '나의 계정정보가 변경되었습니다.');
+    }
 }
-
-
-

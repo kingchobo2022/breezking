@@ -34,6 +34,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::post('users/edit/{id}', [AdminController::class, 'AdminUpdateUser'])->name('admin.users.update');
     Route::get('users/delete/{id}', [AdminController::class, 'AdminDeleteSoft'])->name('admin.users.delete.soft');
     Route::post('users/update_name', [AdminController::class, 'AdminUpdateNameUser']);
+    Route::get('users/change_status', [AdminController::class, 'AdminChangeStatus']);
 
     Route::post('users/add', [AdminController::class, 'AdminAddUserStore'])->name('admin.users.adduser.store');
 
@@ -43,6 +44,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('email/delete', [EmailController::class, 'AdminEmailSentDelete'])->name('admin.email.sent.delete');
     Route::get('email/read/{id}', [EmailController::class, 'AdminEmailRead'])->name('admin.email.read');
     Route::get('email/read_delete/{id}', [EmailController::class, 'AdminEmailReadDelete'])->name('admin.email.read.delete');
+    Route::get('my_profile', [AdminController::class, 'AdminMyProfile']);
+    Route::post('my_profile/update', [AdminController::class, 'AdminMyProfileUpdate']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
