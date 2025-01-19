@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Week;
+use App\Models\WeekTime;
 use Illuminate\Http\Request;
 
 class UserTimeController extends Controller
@@ -49,5 +50,26 @@ class UserTimeController extends Controller
         $week->delete();
 
         return redirect('admin/week')->with('success', 'Week Delete Successfully.');
+    }
+
+    public function WeekTimeList()
+    {
+        $weektimes = WeekTime::get();
+
+        return view('admin.week_time.list', compact('weektimes'));
+    }
+
+    public function WeekTimeAdd()
+    {
+        return view('admin.week_time.add');
+    }
+
+    public function WeekTimeStore(Request $request)
+    {
+        $weektime = new WeekTime;
+        $weektime->name = trim($request->name);
+        $weektime->save();
+
+        return redirect('admin/week_time')->with('success', 'Week Time Add Successfully.');
     }
 }

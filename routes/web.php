@@ -54,6 +54,10 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('week/edit/{id}', [UserTimeController::class, 'WeekEdit']);
     Route::post('week/edit/{id}', [UserTimeController::class, 'WeekUpdate']);
     Route::get('week/delete/{id}', [UserTimeController::class, 'WeekDelete']);
+
+    Route::get('week_time', [UserTimeController::class, 'WeekTimeList']);
+    Route::get('week_time/add', [UserTimeController::class, 'WeekTimeAdd']);    
+    Route::post('week_time/add', [UserTimeController::class, 'WeekTimeStore']);    
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
