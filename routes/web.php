@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserTimeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -46,6 +47,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('email/read_delete/{id}', [EmailController::class, 'AdminEmailReadDelete'])->name('admin.email.read.delete');
     Route::get('my_profile', [AdminController::class, 'AdminMyProfile']);
     Route::post('my_profile/update', [AdminController::class, 'AdminMyProfileUpdate']);
+
+    Route::get('week', [UserTimeController::class, 'WeekList']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
