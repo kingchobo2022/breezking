@@ -72,4 +72,27 @@ class UserTimeController extends Controller
 
         return redirect('admin/week_time')->with('success', 'Week Time Add Successfully.');
     }
+
+    public function WeekTimeEdit($id)
+    {
+        $weektime = WeekTime::find($id);
+        return view('admin.week_time.edit', compact('weektime'));
+    }
+
+    public function WeekTimeUpdate($id, Request $request)
+    {
+        $weektime = WeekTime::find($id);
+        $weektime->name = trim($request->name);
+        $weektime->save();
+
+        return redirect('admin/week_time')->with('success', 'Week Time Update Successfully.');
+    }
+
+    public function WeekTimeDelete($id)
+    {
+        $weektime = WeekTime::find($id);
+        $weektime->delete();
+
+        return redirect('admin/week_time')->with('success', 'Week Time Delete Successfully.');        
+    }
 }
