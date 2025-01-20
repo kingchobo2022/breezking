@@ -34,21 +34,30 @@
 				  <tbody>
 
 					@foreach ($weeks as $week)	
+						@php
+							$getuserweek = App\Models\UserTime::getDetail($week->id);
+							$open_close = !empty($getuserweek->status) ? 'checked' : '';
+							$start_time = !empty($getuserweek->start_time) ? $getuserweek->start_time : '';
+							$end_time   = !empty($getuserweek->end_time) ? $getuserweek->end_time : '';
+
+						@endphp
 					<tr class="table-info text-dark">
 					  <td>{{ $week->name }}</td>
-					  <td><label class="switch">
+					  <td>
+							<input type="hidden" value="{{ $week->id }}" name="week[{{ $week->id }}][week_id]">							
+						<label class="switch">
 							<input type="checkbox" name="week">
 						</label>
 					  </td>
 					  <td>
-						<select class="form-control">
+						<select name="week[{{ $week->id }}][start_time]" class="form-control" style="{{ $open_close == 'checked' ? '' : 'display:none'}}">
 							@foreach ($weektimes as $weektime)
 								<option value="{{ $weektime->id }}">{{ $weektime->name }}</option>
 							@endforeach
 						</select>
 					  </td>
 					  <td>
-						<select class="form-control">
+						<select name="week[{{ $week->id }}][end_time]" class="form-control" style="{{ $open_close == 'checked' ? '' : 'display:none'}}">
 							@foreach ($weektimes as $weektime)
 								<option value="{{ $weektime->id }}">{{ $weektime->name }}</option>
 							@endforeach
