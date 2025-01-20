@@ -95,4 +95,12 @@ class UserTimeController extends Controller
 
         return redirect('admin/week_time')->with('success', 'Week Time Delete Successfully.');        
     }
+
+    public function AdminSchedule()
+    {
+        $weeks = Week::get();
+        $weektimes = WeekTime::get();
+
+        return view('admin.schedule.list', compact('weeks', 'weektimes'));
+    }
 }
