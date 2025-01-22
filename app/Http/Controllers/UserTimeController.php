@@ -6,6 +6,7 @@ use App\Models\UserTime;
 use App\Models\Week;
 use App\Models\WeekTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserTimeController extends Controller
 {
@@ -104,5 +105,27 @@ class UserTimeController extends Controller
         $usertimes = UserTime::get();
 
         return view('admin.schedule.list', compact('weeks', 'weektimes', 'usertimes'));
+    }
+
+    public function AdminScheduleUPdate(Request $request)
+    {
+        //dd($request->all());
+        UserTime::where('user_id', '=', Auth::user()->id)->delete();
+
+        if (!empty($request->week)) {
+            foreach ($request->week as $value) {
+                if (!empty($value['status'])) {
+                    $record = new UserTime;
+                    $record->week_id = $value['week_id'];
+                    $record->user_id = Auth::user()->id;
+                    $record->status = 1;
+                    $record->start_time = $value['start_time'];
+                    $record->end_time = $value['end_time'];
+                    $record->save();
+                }
+            }
+        }
+
+        return redirect('admin/schedule')->with('success', 'Schedule Update Successfully.');
     }
 }

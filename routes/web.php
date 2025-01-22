@@ -63,6 +63,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('week_time/delete/{id}', [UserTimeController::class, 'WeekTimeDelete']);
 
     Route::get('schedule',[UserTimeController::class, 'AdminSchedule']);
+    Route::post('schedule',[UserTimeController::class, 'AdminScheduleUPdate']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

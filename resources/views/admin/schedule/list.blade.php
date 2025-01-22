@@ -22,6 +22,8 @@
 			  
 	
 			  <div class="table-responsive pt-3">
+				<form method="post" action="{{ url('admin/schedule') }}">
+					@csrf
 				<table class="table table-bordered">
 				  <thead>
 					<tr>
@@ -46,20 +48,26 @@
 					  <td>
 							<input type="hidden" value="{{ $week->id }}" name="week[{{ $week->id }}][week_id]">							
 						<label class="switch">
-							<input type="checkbox" name="week">
+							<input type="checkbox" name="week[{{ $week->id }}][status]" {{ $open_close }} class="change-availability" data-id="{{ $week->id }}">
 						</label>
 					  </td>
 					  <td>
-						<select name="week[{{ $week->id }}][start_time]" class="form-control" style="{{ $open_close == 'checked' ? '' : 'display:none'}}">
+						<select name="week[{{ $week->id }}][start_time]" class="form-control required-{{ $week->id }} show-availability-{{ $week->id }}">
+							<option value="">Select Start Time</option>
 							@foreach ($weektimes as $weektime)
-								<option value="{{ $weektime->id }}">{{ $weektime->name }}</option>
+								<option value="{{ $weektime->name }}" {{ $start_time == $weektime->name ? 'selected' : '' }}>
+									{{ $weektime->name }}
+								</option>
 							@endforeach
 						</select>
 					  </td>
 					  <td>
-						<select name="week[{{ $week->id }}][end_time]" class="form-control" style="{{ $open_close == 'checked' ? '' : 'display:none'}}">
+						<select name="week[{{ $week->id }}][end_time]" class="form-control required-{{ $week->id }} show-availability-{{ $week->id }}">
+							<option value="">Select End Time</option>
 							@foreach ($weektimes as $weektime)
-								<option value="{{ $weektime->id }}">{{ $weektime->name }}</option>
+								<option value="{{ $weektime->name }}" {{ $end_time == $weektime->name ? 'selected' : '' }}>
+									{{ $weektime->name }}
+								</option>
 							@endforeach
 						</select>
 					  </td>
@@ -72,6 +80,8 @@
 					
 				  </tbody>
 				</table>
+				<button class="btn btn-primary mt-3">Update</button>
+				</form>
 			  </div>
 			  <div class="mt-3">
 				{{-- pagination --}}
