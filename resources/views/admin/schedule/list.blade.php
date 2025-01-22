@@ -52,7 +52,7 @@
 						</label>
 					  </td>
 					  <td>
-						<select name="week[{{ $week->id }}][start_time]" class="form-control required-{{ $week->id }} show-availability-{{ $week->id }}">
+						<select name="week[{{ $week->id }}][start_time]" class="form-control required-{{ $week->id }} show-availability-{{ $week->id }}" style="{{ $open_close == 'checked' ? '': 'display:none' }}">
 							<option value="">Select Start Time</option>
 							@foreach ($weektimes as $weektime)
 								<option value="{{ $weektime->name }}" {{ $start_time == $weektime->name ? 'selected' : '' }}>
@@ -62,7 +62,7 @@
 						</select>
 					  </td>
 					  <td>
-						<select name="week[{{ $week->id }}][end_time]" class="form-control required-{{ $week->id }} show-availability-{{ $week->id }}">
+						<select name="week[{{ $week->id }}][end_time]" class="form-control required-{{ $week->id }} show-availability-{{ $week->id }}" style="{{ $open_close == 'checked' ? '': 'display:none' }}">
 							<option value="">Select End Time</option>
 							@foreach ($weektimes as $weektime)
 								<option value="{{ $weektime->name }}" {{ $end_time == $weektime->name ? 'selected' : '' }}>
@@ -94,4 +94,27 @@
 
 
 </div>	  
+@endsection
+
+@section('script')
+<script>
+const cas = document.querySelectorAll('.change-availability');
+cas.forEach(element => {
+	element.addEventListener('click', () => {
+		
+		const id = element.dataset.id;
+		
+		const showAvailabilityElements = document.querySelectorAll(`.show-availability-${id}`);
+		const requiredElements = document.querySelectorAll(`.required-${id}`);
+
+		showAvailabilityElements.forEach(el => {
+			el.style.display = element.checked ? 'block' : 'none';
+		});
+
+		requiredElements.forEach(el => {
+			el.required = element.checked;
+		});
+	});
+});
+</script>	
 @endsection
