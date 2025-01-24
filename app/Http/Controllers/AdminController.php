@@ -230,4 +230,15 @@ class AdminController extends Controller
         $user->save();
         return redirect('admin/my_profile')->with('success', '나의 계정정보가 변경되었습니다.');
     }
+
+    public function CheckEmail(Request $request) {
+        $email = $request->input('email');
+
+        $isExists = User::where('email', '=', $email)->first();
+        if ($isExists) {
+            return response()->json(['exists' => true]);
+        } else {
+            return response()->json(['exists' => false]);
+        }
+    }
 }

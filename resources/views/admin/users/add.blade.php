@@ -1,5 +1,6 @@
 @extends('admin.admin_dashboard')
 @section('admin')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="page-content">
   <nav class="page-breadcrumb">
     <ol class="breadcrumb">
@@ -33,7 +34,7 @@
               <div class="col-sm-9">
                 <input type="email" name="email" value="{{ old('email') }}" class="form-control" autocomplete="off" placeholder="Email" required>
 
-                <span style="color: red;">{{ $errors->first('email') }}</span>
+                <span id="duplicate_message" style="color: red;">{{ $errors->first('email') }}</span>
 
               </div>
             </div>
@@ -73,4 +74,37 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+const input_email = document.querySelector('input[name="email"]');  
+
+input_email.addEventListener("blur", function(){
+  console.log(this.value)  
+
+  const f = new FormData()
+  f.append('email', this.value)
+  const xhr = new XMLHttpRequest()
+  xhr.open('POST', '{{ url('admin/checkemail') }}', true)
+  xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken)
+  xhr.send(f)
+
+  xhr.onload = function() {
+     if (xhr.status == 200) {
+       //console.log('Response : ' + xhr.responseText); // 서버 응답 
+       const json = JSON.parse(xhr.responseText)
+       if (json.exists) {
+        document.getElementById('duplicate_message').textContent = '이미 사용중인 이메일입니다.' 
+       } else {
+        document.getElementById('duplicate_message').textContent = '' 
+       }
+
+     } else {
+       console.error('Request failed. Status : ', xhr.status);
+     }
+  }
+})
+</script>    
 @endsection

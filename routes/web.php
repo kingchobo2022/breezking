@@ -36,6 +36,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('users/delete/{id}', [AdminController::class, 'AdminDeleteSoft'])->name('admin.users.delete.soft');
     Route::post('users/update_name', [AdminController::class, 'AdminUpdateNameUser']);
     Route::get('users/change_status', [AdminController::class, 'AdminChangeStatus']);
+    Route::post('checkemail', [AdminController::class, 'CheckEmail']);
 
     Route::post('users/add', [AdminController::class, 'AdminAddUserStore'])->name('admin.users.adduser.store');
 
