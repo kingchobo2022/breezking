@@ -15,7 +15,7 @@
 
           <h6 class="card-title">push notification</h6>
 
-          <form class="forms-sample" method="post" action="{{ url('admin/my_profile/update') }}" enctype="multipart/form-data">
+          <form class="forms-sample" method="post" action="{{ url('admin/notification_send') }}" enctype="multipart/form-data">
             @csrf
             <div class="row mb-3">
               <label class="col-sm-3 col-form-label">Name <span style="color: red"> *</span></label>
@@ -29,16 +29,16 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label class="col-sm-3 col-form-label">Email <span style="color: red"> *</span></label>
+              <label class="col-sm-3 col-form-label">Title <span style="color: red"> *</span></label>
               <div class="col-sm-9">
-                <input type="email" name="email" value="" class="form-control" autocomplete="off" placeholder="Email" required>
+                <input type="text" name="title" value="" class="form-control" autocomplete="off" placeholder="title" required>
 
-                <span style="color: red;">{{ $errors->first('email') }}</span>
+                <span style="color: red;">{{ $errors->first('title') }}</span>
 
               </div>
             </div>
             <div class="row mb-3">
-				<label class="col-sm-3 col-form-label">Email <span style="color: red"> *</span></label>
+				<label class="col-sm-3 col-form-label">Message <span style="color: red"> *</span></label>
 				<div class="col-sm-9">
 					<textarea name="message" class="form-control" placeholder="Message" required></textarea>
 				</div>

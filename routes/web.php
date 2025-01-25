@@ -68,6 +68,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::post('schedule',[UserTimeController::class, 'AdminScheduleUPdate']);
 
     Route::get('notification', [NotificationController::class, 'NotificationIndex']);
+    Route::post('notification_send', [NotificationController::class, 'NotificationSend']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
