@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,6 +15,13 @@ class NotificationController extends Controller
     }
 
     public function NotificationSend(Request $request) {
+
+        $noti = new Notification;
+        $noti->user_id = $request->user_id;
+        $noti->title = $request->title;
+        $noti->message = $request->message;
+        $noti->save();
+
         $user = User::where('id', '=', $request->user_id)->first();
         if (!empty($user->token)) {
             try {
