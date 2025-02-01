@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class QRCodeController extends Controller
 {
     public function List() {
-        return view('admin.qrcode.list');
+        $qrcodes = Product::get();
+        return view('admin.qrcode.list', compact('qrcodes'));
     }
 
     public function AddQrcode() {
@@ -25,4 +26,5 @@ class QRCodeController extends Controller
 
         return redirect('admin/qrcode')->with('success', 'QRCode Successfully Create');
     }
+
 }

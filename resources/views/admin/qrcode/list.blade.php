@@ -26,12 +26,28 @@
 				  <thead>
 					<tr>
 					  <th>#</th>
-					  <th>Name</th>
+					  <th>Title</th>
+					  <th>Price</th>
+					  <th>Product Code</th>
+					  <th>Description</th>
 					  <th>Created At</th>
-					  <th>Action</th>
 					</tr>
 				  </thead>
-
+				  <tbody>
+					@foreach ($qrcodes as $qrcode)
+					<tr class="table-info text-dark">
+						<td>{{ $qrcode->id }}</td>
+						<td>{{ $qrcode->title }}</td>
+						<td>{{ $qrcode->price }}</td>
+						<td>
+							{!! DNS2D::getBarCodeHTML($qrcode->product_code, 'QRCODE', 5, 5)  !!}
+							{{ $qrcode->product_code }}
+						</td>
+						<td>{{ $qrcode->description }}</td>
+						<td>{{ $qrcode->created_at }}</td>
+					</tr>	
+					@endforeach
+				  </tbody>
 				</table>
 			  </div>
 			  <div class="mt-3">
