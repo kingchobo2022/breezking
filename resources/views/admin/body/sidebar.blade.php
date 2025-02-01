@@ -53,6 +53,12 @@
         </a>
       </li>
 
+      <li class="nav-item">
+        <a href="{{ url('admin/qrcode') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">QRCode</span>
+        </a>
+      </li>
 
       <li class="nav-item nav-category">web apps</li>
       <li class="nav-item">

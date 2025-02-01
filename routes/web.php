@@ -5,6 +5,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\UserTimeController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,10 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('notification', [NotificationController::class, 'NotificationIndex']);
     Route::post('notification_send', [NotificationController::class, 'NotificationSend']);
+
+    Route::get('qrcode', [QRCodeController::class, 'List']);
+    Route::get('qrcode/add', [QRCodeController::class, 'AddQrcode']);
+    Route::post('qrcode/add', [QRCodeController::class, 'StoreQrcode']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
