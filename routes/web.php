@@ -6,6 +6,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
+use App\Http\Controllers\SMTPController;
 use App\Http\Controllers\UserTimeController;
 use Illuminate\Support\Facades\Route;
 
@@ -77,6 +78,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('qrcode/edit/{id}', [QRCodeController::class, 'EditQrcode']);
     Route::post('qrcode/edit/{id}', [QRCodeController::class, 'UpdateQrcode']);
     Route::get('qrcode/delete/{id}', [QRCodeController::class, 'DeleteQrcode']);
+
+    Route::get('smtp', [SMTPController::class, 'SMTPList']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
