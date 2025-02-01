@@ -74,6 +74,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('qrcode', [QRCodeController::class, 'List']);
     Route::get('qrcode/add', [QRCodeController::class, 'AddQrcode']);
     Route::post('qrcode/add', [QRCodeController::class, 'StoreQrcode']);
+    Route::get('qrcode/edit/{id}', [QRCodeController::class, 'EditQrcode']);
+    Route::post('qrcode/edit/{id}', [QRCodeController::class, 'UpdateQrcode']);
+    Route::get('qrcode/delete/{id}', [QRCodeController::class, 'DeleteQrcode']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
