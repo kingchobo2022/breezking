@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Color;
+use Illuminate\Http\Request;
+
+class ColorController extends Controller
+{
+    public function ColorList() {
+        $colors = Color::get();
+        return view('admin.color.list', compact('colors'));
+    }
+
+    public function ColorAdd() {
+        return view('admin.color.add');
+    }
+
+    public function ColorStore(Request $request) {
+        $color = new Color;
+        $color->name = trim($request->name);
+        $color->save();
+
+        return redirect('admin/color')->with('success', 'Color Successfully Add');
+    }
+
+    public function ColorEdit($id) {
+        $color = Color::find($id);
+
+        return view('admin.color.edit', compact('color'));
+    }
+
+    public function ColorUpdate($id, Request $request) {
+        $color = Color::find($id);
+        $color->name = trim($request->name);
+        $color->save();
+
+        return redirect('admin/color')->with('success', 'Color Successfully Update');
+    }
+
+    public function ColorDelete($id) {
+        $color = Color::find($id);
+        $color->delete();
+        
+        return redirect('admin/color')->with('success', 'Color Successfully Delete');
+    }
+}
