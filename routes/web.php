@@ -80,6 +80,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('qrcode/delete/{id}', [QRCodeController::class, 'DeleteQrcode']);
 
     Route::get('smtp', [SMTPController::class, 'SMTPList']);
+    Route::post('smtp_update', [SMTPController::class, 'SMTPUdate']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
