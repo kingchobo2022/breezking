@@ -14,7 +14,7 @@
 
           <h6 class="card-title">Add Order</h6>
 
-          <form class="forms-sample" method="post" action="{{ url('admin/color/add') }}">
+          <form class="forms-sample" method="post" action="{{ url('admin/order/add') }}">
             @csrf
             <div class="row mb-3">
               <label class="col-sm-3 col-form-label">Product Name <span style="color: red"> *</span></label>
@@ -34,7 +34,7 @@
                @foreach ($colors as $color)
 
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="{{ $color->id }}" id="flexCheckDefault{{ $color->id }}">
+                    <input class="form-check-input" name="color_id[]" type="checkbox" value="{{ $color->id }}" id="flexCheckDefault{{ $color->id }}">
                     <label class="form-check-label" for="flexCheckDefault{{ $color->id }}">
                       {{ $color->name }}
                     </label>
@@ -43,6 +43,13 @@
                @endforeach
               </div>
             </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-3 col-form-label">수량 <span style="color: red"> *</span></label>
+              <div class="col-sm-9">
+                <input type="number" name="qtys" class="form-control" required>
+              </div>
+            </div>            
 
             <button type="submit" class="btn btn-primary me-2">Submit</button>
             <a href="{{ url('admin/order') }}" class="btn btn-secondary">Back</a>

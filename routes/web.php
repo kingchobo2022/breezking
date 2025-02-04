@@ -93,6 +93,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('order', [OrderController::class, 'OrderList']);
     Route::get('order/add', [OrderController::class, 'OrderAdd']);
+    Route::post('order/add', [OrderController::class, 'OrderStore']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
