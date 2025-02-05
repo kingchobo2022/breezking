@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     public function OrderList() {
-        return view('admin.order.list');
+        $orders = Orders::getData();
+
+        return view('admin.order.list', compact('orders'));
     }
 
     public function OrderAdd() {

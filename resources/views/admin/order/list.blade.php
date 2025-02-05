@@ -26,12 +26,29 @@
 				  <thead>
 					<tr>
 					  <th>#</th>
-					  <th>Name</th>
+					  <th>Product Name</th>
+					  <th>수량</th>
+					  <th>색상</th>
 					  <th>Created At</th>
 					  <th>Action</th>
 					</tr>
 				  </thead>
-				  
+				  <tbody>
+					@foreach ($orders as $order)
+					<tr>
+						<td>{{ $order->id }}</td>
+						<td>{{ $order->title }}</td>
+						<td>
+							@foreach ($order->getColor as $color)
+								{{ $color->name }}
+							@endforeach
+						</td>
+						<td>{{ $order->qtys }}</td>
+						<td>{{ $order->created_at }}</td>
+						<td></td>
+					</tr>	
+					@endforeach
+				  </tbody>
 				</table>
 			  </div>
 			  <div class="mt-3">
