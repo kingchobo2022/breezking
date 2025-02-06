@@ -38,4 +38,12 @@ class OrderController extends Controller
         }
         return redirect('admin/order')->with('success', 'Order Successfully Create');
     }
+
+    public function OrderEdit($id) {
+        $order = Orders::find($id);
+        $orderDetails = OrdersDetails::where('orders_id', '=', $id)->get();
+        $products = Product::get();
+        $colors = Color::get();
+        return view('admin.order.edit', compact('products', 'colors', 'order', 'orderDetails'));
+    }
 }
