@@ -66,4 +66,11 @@ class OrderController extends Controller
 
         return redirect('admin/order')->with('success', 'Order Successfully Update');
     }
+
+    public function OrderDelete($id) {
+        Orders::find($id)->delete();
+        OrdersDetails::where('orders_id', '=', $id)->delete();
+
+        return redirect()->back()->with('success', '주문정보가 성공적으로 삭제되었습니다.');
+    }
 }
