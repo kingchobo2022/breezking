@@ -46,4 +46,24 @@ class OrderController extends Controller
         $colors = Color::get();
         return view('admin.order.edit', compact('products', 'colors', 'order', 'orderDetails'));
     }
+
+    public function OrderUpdate($id, Request $request) {
+        $order = Orders::find($id);
+        $order->product_id = $request->product_id;
+        $order->qtys = $request->qtys;
+        $order->save();
+
+        OrdersDetails::where('orders_id', '=', $order->id)->delete();
+
+        if (!empty($request->color_id)) {
+            foreach( $request->color_id  as $color_id ) {
+                $orderDetail = new OrdersDetails;
+                $orderDetail->orders_id =  $order->id;
+                $orderDetail->color_id = $color_id;
+                $orderDetail->save();
+            }
+        }
+
+        return redirect('admin/order')->with('success', 'Order Successfully Update');
+    }
 }

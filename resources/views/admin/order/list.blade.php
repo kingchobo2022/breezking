@@ -27,8 +27,8 @@
 					<tr>
 					  <th>#</th>
 					  <th>Product Name</th>
-					  <th>수량</th>
 					  <th>색상</th>
+					  <th>수량</th>
 					  <th>Created At</th>
 					  <th>Action</th>
 					</tr>
