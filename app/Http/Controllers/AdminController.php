@@ -124,6 +124,15 @@ class AdminController extends Controller
         $user->role = $request->role;
         $user->status = $request->status;
         $user->remember_token = Str::random(50);
+
+        if (!empty($request->file('photo'))) {
+            $file = $request->file('photo');
+            $randomStr = Str::random(30);
+            $filename = $randomStr .'.'. $file->getClientOriginalExtension();
+            $file->move('upload/', $filename);
+            $user->photo = $filename;
+        }
+
         $user->save();
 
         // 인증 메일 발송

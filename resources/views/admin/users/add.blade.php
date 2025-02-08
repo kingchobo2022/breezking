@@ -15,7 +15,7 @@
 
           <h6 class="card-title">유저 등록</h6>
 
-          <form class="forms-sample" method="post" action="{{ url('admin/users/add') }}">
+          <form class="forms-sample" method="post" enctype="multipart/form-data" action="{{ url('admin/users/add') }}">
             @csrf
             <div class="row mb-3">
               <label class="col-sm-3 col-form-label">Name <span style="color: red"> *</span></label>
@@ -36,6 +36,12 @@
 
                 <span id="duplicate_message" style="color: red;">{{ $errors->first('email') }}</span>
 
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-3 col-form-label">Photo</label>
+              <div class="col-sm-9">
+                <input type="file" name="photo" class="form-control">
               </div>
             </div>
             <div class="row mb-3">
