@@ -9,6 +9,48 @@
 	  </ol>
 	</nav>
 
+	{{-- Search Start --}}
+	<div class="row">
+		<div class="col-lg-12 stretch-card">
+			<div class="card">
+				<div class="card-body">
+					<h6 class="card-title">Search Order</h6>
+					<form method="get" action="">
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="mb-3">
+									<label for="" class="form-label">Id</label>
+									<input type="text" name="id" value="{{ Request()->id }}" class="form-control" placeholder="Enter id">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="mb-3">
+									<label for="" class="form-label">Product Title</label>
+									<input type="text" name="title" value="{{ Request()->title }}" class="form-control" placeholder="Enter Product Title">
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="mb-3">
+									<label for="" class="form-label">Created At</label>
+									<input type="date" name="created_at" value="{{ Request()->created_at }}" class="form-control" placeholder="Enter Created At">
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="mb-3">
+									<label for="" class="form-label">Updated At</label>
+									<input type="date" name="updated_at" value="{{ Request()->updated_at }}" class="form-control" placeholder="Enter Updated At">
+								</div>
+							</div>
+						</div>
+						<button class="btn btn-primary me-1">Search</button>
+						<a href="{{ url('admin/order') }}" class="btn btn-danger">Reset</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{-- Search End --}}
+
 	<div class="row">
 		<div class="col-lg-12 stretch-card">
 		  <div class="card">

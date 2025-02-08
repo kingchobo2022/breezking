@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function OrderList() {
-        $orders = Orders::getData();
+    public function OrderList(Request $request) {
+        $orders = Orders::getData($request);
 
         return view('admin.order.list', compact('orders'));
     }
@@ -68,8 +68,17 @@ class OrderController extends Controller
     }
 
     public function OrderDelete($id) {
-        Orders::find($id)->delete();
-        OrdersDetails::where('orders_id', '=', $id)->delete();
+
+        $orders = Orders::find($id);
+        if(!$orders) {
+            return redirect('admin/order')->with('success', '주문정보가 존재하지 않거나 이미 삭제되었습니다.');
+        }
+        $orders->delete();
+
+        $orderDetails = OrdersDetails::where('orders_id', '=', $id);
+        if($orderDetails) {
+            $orderDetails->delete();
+        }
 
         return redirect()->back()->with('success', '주문정보가 성공적으로 삭제되었습니다.');
     }
