@@ -14,7 +14,7 @@
 
           <h6 class="card-title">유저 수정</h6>
 
-          <form class="forms-sample" method="post" action="{{ url('admin/users/edit/'. $row->id) }}">
+          <form class="forms-sample" method="post" enctype="multipart/form-data" action="{{ url('admin/users/edit/'. $row->id) }}">
             @csrf
             <div class="row mb-3">
               <label class="col-sm-3 col-form-label">Name <span style="color: red"> *</span></label>
@@ -35,6 +35,15 @@
 
                 <span style="color: red;">{{ $errors->first('email') }}</span>
 
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-3 col-form-label">Photo</label>
+              <div class="col-sm-9">
+                <input type="file" name="photo" class="form-control">
+                @if ($row->getFile()) 
+                    <img src="{{ $row->getFile() }}" class="w-25 p-1">  
+                @endif
               </div>
             </div>
             <div class="row mb-3">

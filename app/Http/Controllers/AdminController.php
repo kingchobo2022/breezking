@@ -178,6 +178,20 @@ class AdminController extends Controller
         $user->phone = trim($request->phone);
         $user->role = $request->role;
         $user->status = $request->status;
+
+        if (!empty($request->file('photo'))) {
+
+            if (!empty($user->photo) && file_exists('upload/'. $user->photo)) {
+                unlink('upload/'. $user->photo);
+            }
+
+            $file = $request->file('photo');
+            $randomStr = Str::random(30);
+            $filename = $randomStr .'.'. $file->getClientOriginalExtension();
+            $file->move('upload/', $filename);
+            $user->photo = $filename;
+        }
+
         $user->save();
 
         return redirect('admin/users')->with('success', '유저 정보가 정상적으로 수정되었습니다.');
