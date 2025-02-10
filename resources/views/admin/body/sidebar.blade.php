@@ -37,6 +37,12 @@
           <span class="link-title">Order</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('admin/blog') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Blog</span>
+        </a>
+      </li>
 
 
       <li class="nav-item nav-category">User Week</li>
