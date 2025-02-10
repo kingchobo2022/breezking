@@ -1,6 +1,7 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.5/dist/css/lightbox.min.css">
 <div class="page-content">
   @include('inc_message')
   <nav class="page-breadcrumb">
@@ -152,7 +153,7 @@
                   <td>{{ $row->email }}</td>
                   <td>
                     @if( !empty($row->photo) )
-                    <img src="{{ asset('upload/'. $row->photo ) }}" class="wd-80 ht-80 rounded-circle">
+                    <a href="{{ asset('upload/'. $row->photo ) }}" data-lightbox="box-set1"><img src="{{ asset('upload/'. $row->photo ) }}" class="wd-80 ht-80 rounded-circle"></a>
                     @endif
                   </td>
                   <td>{{ $row->phone }}</td>
@@ -211,6 +212,7 @@
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.5/dist/js/lightbox.min.js"></script>
 <script>
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
   document.querySelectorAll('.submitform').forEach(button => {
