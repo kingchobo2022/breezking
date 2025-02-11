@@ -20,6 +20,40 @@
 				</div>
 			  </div>
 			  
+			  <div class="table-responsive pt-3">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Title</th>
+							<th>Slug</th>
+							<th>Description</th>
+							<th>Created At</th>
+							<th>Updated At</th>
+						</tr>
+					</thead>
+					<tbody>
+						@forelse ($blogs as $blog)
+						<tr>
+							<td>{{ $blog->id }}</td>
+							<td>{{ $blog->title }}</td>
+							<td>{{ $blog->slug }}</td>
+							<td>{!! $blog->description !!}</td>
+							<td>{{ $blog->created_at }}</td>
+							<td>{{ $blog->updated_at }}</td>
+						</tr>
+						@empty
+						<tr>
+							<td colspan="100%">Not Found data</td>	
+						</tr>							
+						@endforelse
+					</tbody>
+				</table>
+			  </div>
+
+			  <div class="mt-2">
+				{!! $blogs->appends(Request::except('page'))->links() !!}
+			  </div>
 	
 
 			</div>

@@ -24,14 +24,16 @@
             <div class="row mb-3">
               <label class="col-sm-3 col-form-label">Title <span style="color: red"> *</span></label>
               <div class="col-sm-9">
-                <input type="text" name="title" class="form-control" placeholder="Enter Title" required>
+                <input type="text" name="title" class="form-control" placeholder="Enter Title" required id="getTitle">
               </div>
             </div>
 
             <div class="row mb-3">
-              <label class="col-sm-3 col-form-label">Slug <span style="color: red"> *</span></label>
+              <label class="col-sm-3 col-form-label">Slug <span style="color: red"> *</span>
+              <a id="ConvertSlug" style="cursor: pointer">Convert Slug</a>
+              </label>
               <div class="col-sm-9">
-                <input type="text" name="slug" class="form-control" placeholder="Enter Slug" required>
+                <input type="text" name="slug" id="getSlug" class="form-control" placeholder="Enter Slug" required>
               </div>
             </div>
 
@@ -57,13 +59,20 @@
 <script src="https://cdn.jsdelivr.net/npm/tinymce@7.6.1/tinymce.min.js"></script>    
 
 <script>
-  tinymce.init({
-    selector: '.tinymce_editor',
-    height: '500px',
-    skin: 'oxide-dark',
-    content_css: 'dark',
-    toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | forecolor backcolor'
-  });
+tinymce.init({
+  selector: '.tinymce_editor',
+  height: '500px',
+  skin: 'oxide-dark',
+  content_css: 'dark',
+  toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | forecolor backcolor'
+});
+
+document.getElementById('ConvertSlug').addEventListener("click", function(){
+  const title = document.getElementById('getTitle').value;
+  const slug = document.getElementById('getSlug');
+
+  slug.value = title.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, "");
+});
 </script>
 
 @endsection

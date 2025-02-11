@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class BlogController extends Controller
 {
     public function BlogList() {
-        return view('admin.blog.list');
+        $blogs = Blog::getAll();
+
+        return view('admin.blog.list', compact('blogs'));
     }
 
     public function BlogAdd() {
