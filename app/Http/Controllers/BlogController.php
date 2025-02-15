@@ -39,4 +39,19 @@ class BlogController extends Controller
 
         return view('admin.blog.view', compact('blog'));
     }
+
+    public function BlogDelete($id) {
+        // $blog = Blog::findorFail($id);
+        // $blog->delete();
+
+        // return redirect('admin/blog')->with('success', 'Blog Successfully Delete');        
+
+        $blog = Blog::find($id);
+        if ($blog) {
+            $blog->delete();
+            return redirect('admin/blog')->with('success', 'Blog Successfully Delete');        
+        }
+
+        return redirect('admin/blog')->with('success', 'Data Not Found');        
+    }
 }
