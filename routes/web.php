@@ -104,6 +104,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::post('blog/add', [BlogController::class, 'BlogStore']);
     Route::get('blog/view/{id}', [BlogController::class, 'BlogView']);
     Route::get('blog/delete/{id}', [BlogController::class, 'BlogDelete']);
+    Route::get('blog/edit/{id}', [BlogController::class, 'BlogEdit']);
+    Route::post('blog/edit/{id}', [BlogController::class, 'BlogUpdate']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

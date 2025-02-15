@@ -54,4 +54,29 @@ class BlogController extends Controller
 
         return redirect('admin/blog')->with('success', 'Data Not Found');        
     }
+
+    public function BlogEdit($id) {
+        $blog = Blog::findOrFail($id);
+
+        return view('admin.blog.edit', compact('blog'));
+    }
+
+    public function BlogUpdate($id, Request $request) {
+        $validateData = $request->validate([
+            'title' => 'required',
+            'slug' => 'required',
+            'description' => 'required'
+        ]);
+
+        $blog = Blog::findOrFail($id); 
+
+        // 대량할당
+        $blog->update([
+            'title' => trim($validateData['title']),
+            'slug' => trim($validateData['slug']),
+            'description' => trim($validateData['description'])
+        ]);
+
+        return redirect('admin/blog')->with('success', 'Blog Successfully Update');
+    }
 }
