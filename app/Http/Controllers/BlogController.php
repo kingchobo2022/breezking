@@ -33,4 +33,10 @@ class BlogController extends Controller
 
         return redirect('admin/blog')->with('success', 'Blog Successfully Add');
     }
+
+    public function BlogView($id) {
+        $blog = Blog::findOrFail($id);
+
+        return view('admin.blog.view', compact('blog'));
+    }
 }
