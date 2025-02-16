@@ -17,6 +17,8 @@
 				<h4 class="card-title">Color List</h4>
 				<div class="d-flex align-items-center">
 
+					<a href="{{ route('admin.pdf_color') }}" class="btn btn-primary me-2">PDF Color</a>
+					
 					<a href="{{ route('admin.pdf_demo') }}" class="btn btn-primary me-2">PDF DEMO</a>
 
 					<a href="{{ route('admin.color.add') }}" class="btn btn-primary">Add Color</a>

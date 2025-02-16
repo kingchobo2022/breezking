@@ -108,6 +108,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::post('blog/edit/{id}', [BlogController::class, 'BlogUpdate']);
 
     Route::get('pdf_demo', [ColorController::class, 'PdfDemo'])->name('admin.pdf_demo');
+    Route::get('pdf_color', [ColorController::class, 'PdfColor'])->name('admin.pdf_color');
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

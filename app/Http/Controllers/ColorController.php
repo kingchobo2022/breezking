@@ -53,7 +53,15 @@ class ColorController extends Controller
         $pdf = PDF::loadView('pdf.myPDFDemo', compact('title', 'date'));
 
         return $pdf->download('Kingchobo.pdf');
+    }
 
+    public function  PdfColor() {
+        $colors = Color::get();
+        $title = 'All Color List';
+        $date = date('Y년 m월 d일');
+
+        $pdf = PDF::loadView('pdf.PDFColor', compact('colors', 'title', 'date'));
+        return $pdf->download('color.pdf');
     }
 }
 
