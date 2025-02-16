@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\SMTP;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +37,11 @@ class AppServiceProvider extends ServiceProvider
             Config::set('mail.from.address', $row->mail_from_address);
             Config::set('app.name', $row->app_name);
         }
+
+        $options = new Options();
+        $options->set('defaultFont', 'NanumGothic');
+
+        $dompdf = new Dompdf($options);
 
     }
 }
