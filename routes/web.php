@@ -106,6 +106,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('blog/delete/{id}', [BlogController::class, 'BlogDelete']);
     Route::get('blog/edit/{id}', [BlogController::class, 'BlogEdit']);
     Route::post('blog/edit/{id}', [BlogController::class, 'BlogUpdate']);
+
+    Route::get('pdf_demo', [ColorController::class, 'PdfDemo'])->name('admin.pdf_demo');
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

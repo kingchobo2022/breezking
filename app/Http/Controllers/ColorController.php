@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Color;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class ColorController extends Controller
 {
@@ -44,4 +45,17 @@ class ColorController extends Controller
         
         return redirect('admin/color')->with('success', 'Color Successfully Delete');
     }
+
+    public function PdfDemo() {
+        $title = 'Welcome New PDF';
+        $date = date('Y-m-d');
+
+        $pdf = PDF::loadView('pdf.myPDFDemo', compact('title', 'date'));
+
+        return $pdf->download('Kingchobo.pdf');
+
+    }
 }
+
+
+
