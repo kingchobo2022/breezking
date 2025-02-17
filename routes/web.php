@@ -5,6 +5,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
@@ -109,6 +110,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('pdf_demo', [ColorController::class, 'PdfDemo'])->name('admin.pdf_demo');
     Route::get('pdf_color', [ColorController::class, 'PdfColor'])->name('admin.pdf_color');
+
+    Route::get('countries', [LocationController::class, 'CountriesIndex']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
