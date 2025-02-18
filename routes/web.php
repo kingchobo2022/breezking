@@ -112,6 +112,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('pdf_color', [ColorController::class, 'PdfColor'])->name('admin.pdf_color');
 
     Route::get('countries', [LocationController::class, 'CountriesIndex']);
+    Route::get('countries/add', [LocationController::class, 'CountriesAdd']);
+    Route::post('countries/add', [LocationController::class, 'CountriesStore']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
