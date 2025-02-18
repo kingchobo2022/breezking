@@ -32,4 +32,41 @@ class LocationController extends Controller
 
         return redirect('admin/countries')->with('success', 'Country Successfully Add');
     }
+
+    public function CountriesEdit($id) {
+        
+        $country = Countries::findOrFail($id);
+
+        return view('admin.countries.edit', compact('country'));
+    }
+
+    public function CountriesUpdate($id, Request $request) {
+        // $country = Countries::find($id);
+        // $country->country_name = trim($request->country_name);
+        // $country->save();
+        $request->validate([
+            'country_name' => 'required|string|max:255'
+        ]);
+
+        $country = Countries::find($id);
+        if(!$country) {
+            return redirect('admin/countries')->with('error', 'The data has been deleted or does not exist.');    
+        }
+
+        Countries::where('id', $id)->update([
+            'country_name' => trim($request->country_name)
+        ]);
+
+        return redirect('admin/countries')->with('success', 'Country has been updated successfully');
+    }
+
+    public function CountriesDelete($id) {
+        $country = Countries::find($id);
+        if(!$country) {
+            return redirect('admin/countries')->with('error', 'The data has already been deleted or does not exist.');       
+        }
+        $country->delete();
+
+        return redirect('admin/countries')->with('success', 'Country has been deleted successfully');
+    }
 }
