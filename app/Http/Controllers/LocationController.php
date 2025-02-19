@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Countries;
+use App\Models\State;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -68,5 +69,10 @@ class LocationController extends Controller
         $country->delete();
 
         return redirect('admin/countries')->with('success', 'Country has been deleted successfully');
+    }
+
+    public function StateList() {
+        $states = State::get();
+        return view('admin.state.list', compact('states'));
     }
 }

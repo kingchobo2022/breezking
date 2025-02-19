@@ -117,6 +117,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('countries/edit/{id}', [LocationController::class, 'CountriesEdit']);
     Route::post('countries/edit/{id}', [LocationController::class, 'CountriesUpdate']);
     Route::get('countries/delete/{id}', [LocationController::class, 'CountriesDelete']);
+
+    Route::get('state', [LocationController::class, 'StateList']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
