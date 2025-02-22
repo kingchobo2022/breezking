@@ -27,7 +27,8 @@
 				  <thead>
 					<tr>
 					  <th>#</th>
-					  <th>State Name</th>
+					  <th>Country</th>
+					  <th>State</th>
 					  <th>Created At</th>
 					  <th>Action</th>
 					</tr>
@@ -36,6 +37,7 @@
 					@foreach ($states as $state)
 					<tr class="table-info text-dark">
 					  <td>{{ $state->id }}</td>
+					  <td>{{ $state->country_name }}</td>
 					  <td>{{ $state->state_name }}</td>
 					  <td>{{ $state->created_at }}</td>
 					  <td>

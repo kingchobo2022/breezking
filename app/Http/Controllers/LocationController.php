@@ -72,7 +72,10 @@ class LocationController extends Controller
     }
 
     public function StateList() {
-        $states = State::get();
+        $states = State::select('state.*', 'countries.country_name')
+        ->join('countries', 'countries.id', '=', 'state.countries_id')
+        ->get();
+
         return view('admin.state.list', compact('states'));
     }
 
@@ -93,5 +96,30 @@ class LocationController extends Controller
         $state->save();
 
         return redirect('admin/state')->with('success', 'State has been added successfully');
+    }
+
+    public function StateEdit($id) {
+        $countries = Countries::get();
+        $state = State::findOrFail($id);
+
+        return view('admin.state.edit', compact('countries', 'state'));
+    }
+
+    public function StateUpdate($id, Request $request) {
+     
+
+        $state = State::findOrFail($id);
+        $state->countries_id = $request->countries_id;
+        $state->state_name = $request->state_name;
+        $state->save();
+
+        return redirect('admin/state')->with('success', 'State has been updated successfully');
+    }
+
+    public function StateDelete($id) {
+        $state = State::findOrFail($id);
+        $state->delete();
+
+        return redirect('admin/state')->with('success', 'State has been deleted successfully');
     }
 }

@@ -121,6 +121,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('state', [LocationController::class, 'StateList']);
     Route::get('state/add', [LocationController::class, 'StateAdd']);
     Route::post('state/add', [LocationController::class, 'StateStore']);
+    Route::get('state/edit/{id}', [LocationController::class, 'StateEdit']);
+    Route::post('state/edit/{id}', [LocationController::class, 'StateUpdate']);
+    Route::get('state/delete/{id}', [LocationController::class, 'StateDelete']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
