@@ -124,6 +124,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('state/edit/{id}', [LocationController::class, 'StateEdit']);
     Route::post('state/edit/{id}', [LocationController::class, 'StateUpdate']);
     Route::get('state/delete/{id}', [LocationController::class, 'StateDelete']);
+
+    Route::get('city', [LocationController::class, 'CityList']);
+    Route::get('city/add', [LocationController::class, 'CityAdd']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

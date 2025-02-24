@@ -122,4 +122,13 @@ class LocationController extends Controller
 
         return redirect('admin/state')->with('success', 'State has been deleted successfully');
     }
+
+    public function CityList() {
+        return view('admin.city.list');
+    }
+
+    public function CityAdd() {
+        $countries = Countries::get();
+        return view('admin.city.add', compact('countries'));
+    }
 }
