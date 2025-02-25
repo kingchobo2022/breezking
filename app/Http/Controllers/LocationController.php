@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Countries;
 use App\Models\State;
 use Illuminate\Http\Request;
@@ -139,6 +140,12 @@ class LocationController extends Controller
     }
 
     public function CityStore(Request $request) {
-        
+        $city = new City;
+        $city->countries_id = $request->countries_id;
+        $city->state_id = $request->state_id;
+        $city->city_name = trim($request->city_name);
+        $city->save();
+
+        return redirect('admin/city')->with('success', 'City has been added successfully');
     }
 }
