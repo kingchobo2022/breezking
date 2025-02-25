@@ -127,6 +127,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('city', [LocationController::class, 'CityList']);
     Route::get('city/add', [LocationController::class, 'CityAdd']);
+    Route::get('get-states-name/{countryId}', [LocationController::class, 'GetStatesName']);
+    Route::post('city/add', [LocationController::class, 'CityStore']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

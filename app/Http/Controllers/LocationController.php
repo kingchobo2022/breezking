@@ -131,4 +131,14 @@ class LocationController extends Controller
         $countries = Countries::get();
         return view('admin.city.add', compact('countries'));
     }
+
+    public function GetStatesName($countryId) {
+        $states = State::where('countries_id', '=', $countryId)->get();
+
+        return response()->json($states);
+    }
+
+    public function CityStore(Request $request) {
+        
+    }
 }

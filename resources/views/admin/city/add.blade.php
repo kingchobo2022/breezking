@@ -30,7 +30,7 @@
             <div class="row mb-3">
               <label class="col-sm-3 col-form-label">State Name <span style="color: red"> *</span></label>
               <div class="col-sm-9">
-                  <select name="state" id="state" class="form-control" required>
+                  <select name="state_id" id="state" class="form-control" required>
                     <option value="">Select State Name</option>
                   </select>
               </div>
@@ -60,7 +60,7 @@
     const countryId = this.value;
     const stateSelect = document.getElementById('state');
 
-    const url = "{{ url('admin/get-states-record') }}" + "/" + countryId;
+    const url = "{{ url('admin/get-states-name') }}" + "/" + countryId;
 
     fetch(url)
       .then(response => response.json())
