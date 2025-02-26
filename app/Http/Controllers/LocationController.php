@@ -125,7 +125,8 @@ class LocationController extends Controller
     }
 
     public function CityList() {
-        return view('admin.city.list');
+        $cities = City::getJoinData();
+        return view('admin.city.list', compact('cities'));
     }
 
     public function CityAdd() {

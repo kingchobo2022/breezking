@@ -26,18 +26,31 @@
 				<table class="table table-bordered">
 				  <thead>
 					<tr>
-					  <th>#</th>
-					  <th>Country</th>
-					  <th>State</th>
+					  <th>ID</th>
+					  <th>Country Name</th>
+					  <th>State Name</th>
+					  <th>City Name</th>
 					  <th>Created At</th>
 					  <th>Action</th>
 					</tr>
 				  </thead>
-				  
+				  <tbody>
+					@foreach ($cities as $city)
+					<tr>
+						<td>{{ $city->id }}</td>
+						<td>{{ $city->country_name }}</td>
+						<td>{{ $city->state_name }}</td>
+						<td>{{ $city->city_name }}</td>
+						<td>{{ $city->created_at }}</td>
+						<td>{{ $city->updated_at }}</td>
+						<td>~</td>
+					</tr>
+					@endforeach  
+				  </tbody>
 				</table>
 			  </div>
 			  <div class="mt-3">
-				{{-- pagination --}}
+				{{ $cities->appends(Request::except('page'))->links() }}
 			  </div>
 			</div>
 		  </div>
