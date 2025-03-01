@@ -9,6 +9,47 @@
 	  </ol>
 	</nav>
 
+	<div class="row mb-2">
+		<div class="col-lg-12 stretch-card">
+			<div class="card">
+				<div class="card-body">
+					<h6 class="card-title">Search City</h6>
+					<form action="" method="get">
+						<div class="row">
+							<div class="col-sm-2">
+								<div class="mb-3">
+									<label for="" class="form-label">Id</label>
+									<input type="text" name="id" value="{{ Request()->id }}" class="form-control" placeholder="Enter id">
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="mb-3">
+									<label for="" class="form-label">Country Name</label>
+									<input type="text" name="country_name" value="{{ Request()->country_name }}" class="form-control" placeholder="Enter Country Name">
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="mb-3">
+									<label for="" class="form-label">State Name</label>
+									<input type="text" name="state_name" value="{{ Request()->state_name }}" class="form-control" placeholder="Enter Country Name">
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="mb-3">
+									<label for="" class="form-label">City Name</label>
+									<input type="text" name="city_name" value="{{ Request()->ciy_name }}" class="form-control" placeholder="Enter City Name">
+								</div>
+							</div>
+
+						</div>
+						<button type="submit" class="btn btn-primary me-1">Search</button>
+						<a href="{{ url('admin/city') }}" class="btn btn-danger">Reset</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-lg-12 stretch-card">
 		  <div class="card">
