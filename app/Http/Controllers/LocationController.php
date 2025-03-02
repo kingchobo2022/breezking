@@ -182,4 +182,21 @@ class LocationController extends Controller
 
         return redirect('admin/city')->with('success', 'City has been deleted successfully');
     }
+
+    public function AddressList() {
+        return view('admin.address.list');
+    }
+
+    public function AddressAdd() {
+        $countries = Countries::get();
+
+         return view('admin.address.add', compact('countries'));
+    }
+
+    public function GetCitiesName($stateId) {
+        $cities = City::where('state_id', '=', $stateId)->get();
+
+        return response()->json($cities);
+    }
+
 }
