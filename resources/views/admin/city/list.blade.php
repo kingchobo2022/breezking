@@ -72,6 +72,7 @@
 					  <th>State Name</th>
 					  <th>City Name</th>
 					  <th>Created At</th>
+					  <th>updated_at</th>
 					  <th>Action</th>
 					</tr>
 				  </thead>
@@ -84,7 +85,10 @@
 						<td>{{ $city->city_name }}</td>
 						<td>{{ $city->created_at }}</td>
 						<td>{{ $city->updated_at }}</td>
-						<td>~</td>
+						<td>
+							<a href="{{ url('admin/city/edit/'. $city->id) }}" class="btn btn-primary">Edit</a>
+							<a href="{{ url('admin/city/delete/'. $city->id) }}" onclick="return confirm('삭제하시겠습니까?')" class="btn btn-danger">Delete</a>
+						</td>
 					</tr>
 					@endforeach  
 				  </tbody>

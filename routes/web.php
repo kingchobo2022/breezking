@@ -129,6 +129,10 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('city/add', [LocationController::class, 'CityAdd']);
     Route::get('get-states-name/{countryId}', [LocationController::class, 'GetStatesName']);
     Route::post('city/add', [LocationController::class, 'CityStore']);
+    Route::get('city/edit/{id}', [LocationController::class, 'CityEdit']);
+    Route::post('city/edit/{id}', [LocationController::class, 'CityUpdate']);
+    Route::get('city/delete/{id}', [LocationController::class, 'CityDelete']);
+
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

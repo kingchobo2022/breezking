@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Countries;
 use App\Models\State;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\Constraint\Count;
 
 class LocationController extends Controller
 {
@@ -69,6 +70,10 @@ class LocationController extends Controller
         }
         $country->delete();
 
+        State::where('countries_id', $id)->delete();
+        City::where('countries_id', $id)->delete();
+
+
         return redirect('admin/countries')->with('success', 'Country has been deleted successfully');
     }
 
@@ -121,6 +126,9 @@ class LocationController extends Controller
         $state = State::findOrFail($id);
         $state->delete();
 
+        City::where('state_id', $id)->delete();
+
+
         return redirect('admin/state')->with('success', 'State has been deleted successfully');
     }
 
@@ -148,5 +156,30 @@ class LocationController extends Controller
         $city->save();
 
         return redirect('admin/city')->with('success', 'City has been added successfully');
+    }
+
+    public function CityEdit($id) {
+        $countries = Countries::get();
+        $city = City::findOrFail($id);
+        $states = State::where('countries_id', '=', $city->countries_id)->get();
+
+        return view('admin.city.edit', compact('countries', 'city', 'states'));
+    }
+
+    public function CityUpdate($id, Request $request) {
+        $city = City::findOrFail($id);
+        $city->countries_id = $request->countries_id;
+        $city->state_id = $request->state_id;
+        $city->city_name = trim($request->city_name);
+        $city->save();
+
+        return redirect('admin/city')->with('success', 'City has been updated successfully');
+    }  
+    
+    public function CityDelete($id) {
+        $city = City::findOrFail($id);
+        $city->delete();
+
+        return redirect('admin/city')->with('success', 'City has been deleted successfully');
     }
 }
