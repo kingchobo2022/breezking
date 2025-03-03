@@ -9,6 +9,52 @@
 	  </ol>
 	</nav>
 
+	<div class="col-lg-12 stretch-card mb-3">
+		<div class="card">
+			<div class="card-body">
+				<h6 class="card-title">Search Address</h6>
+				<form method="get" action="">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="mb-3">
+								<label for="" class="form-label">Id</label>
+								<input type="text" name="id" value="{{ Request()->id }}" class="form-control" placeholder="Enter id">
+							</div>
+						</div>				
+						<div class="col-sm-3">			
+							<div class="mb-3">
+								<label for="" class="form-label">Country Name</label>
+								<input type="text" name="country_name" value="{{ Request()->country_name }}" class="form-control" placeholder="Enter Country Name">
+							</div>
+						</div>
+						<div class="col-sm-3">			
+							<div class="mb-3">
+								<label for="" class="form-label">State Name</label>
+								<input type="text" name="state_name" value="{{ Request()->state_name }}" class="form-control" placeholder="Enter State Name">
+							</div>
+						</div>
+						<div class="col-sm-3">			
+							<div class="mb-3">
+								<label for="" class="form-label">City Name</label>
+								<input type="text" name="city_name" value="{{ Request()->city_name }}" class="form-control" placeholder="Enter City Name">
+							</div>
+						</div>
+						<div class="col-sm-3">			
+							<div class="mb-3">
+								<label for="" class="form-label">Address</label>
+								<input type="text" name="address" value="{{ Request()->address }}" class="form-control" placeholder="Enter Address">
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-primary me-1">Search</button>
+					<a href="{{ url('admin/address') }}" class="btn btn-danger">Reset</a>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
 	<div class="row">
 		<div class="col-lg-12 stretch-card">
 		  <div class="card">
