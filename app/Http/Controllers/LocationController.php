@@ -185,7 +185,8 @@ class LocationController extends Controller
     }
 
     public function AddressList() {
-        return view('admin.address.list');
+        $addresses = Address::getJoinData();
+        return view('admin.address.list', compact('addresses'));
     }
 
     public function AddressAdd() {

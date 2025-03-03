@@ -26,17 +26,36 @@
 				<table class="table table-bordered">
 				  <thead>
 					<tr>
-					  <th>#</th>
+					  <th>ID</th>
 					  <th>Country Name</th>
+					  <th>State Name</th>
+					  <th>City Name</th>
+					  <th>Address</th>
 					  <th>Created At</th>
+					  <th>Updated At</th>
 					  <th>Action</th>
 					</tr>
 				  </thead>
-				 
+				  @forelse ($addresses as $address)
+				  <tr>
+					<td>{{ $address->id }}</td>
+					<td>{{ $address->country_name }}</td>
+					<td>{{ $address->state_name }}</td>
+					<td>{{ $address->city_name }}</td>
+					<td>{{ $address->address }}</td>
+					<td>{{ $address->created_at }}</td>
+					<td>{{ $address->updated_at }}</td>
+					<td>~</td>
+				  </tr>
+
+				  @empty
+					  
+				  @endforelse
 				</table>
 			  </div>
 			  <div class="mt-3">
 				{{-- pagination --}}
+				{{ $addresses->appends(Request::except('page'))->links() }}
 			  </div>
 			</div>
 		  </div>
