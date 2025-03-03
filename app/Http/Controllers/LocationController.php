@@ -242,4 +242,11 @@ class LocationController extends Controller
         return redirect('admin/address')->with('success', 'Address has been updated successfully');
     }
 
+    public function AddressDelete($id) {
+        $address = Address::findOrFail($id);
+        $address->delete();
+
+        return redirect('admin/address')->with('success', 'Address has been deleted successfully');
+    }
+
 }

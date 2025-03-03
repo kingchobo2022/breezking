@@ -91,7 +91,10 @@
 					<td>{{ $address->address }}</td>
 					<td>{{ $address->created_at }}</td>
 					<td>{{ $address->updated_at }}</td>
-					<td><a href="{{ url('admin/address/edit/' . $address->id) }}" class="btn btn-primary">Edit</a></td>
+					<td>
+						<a href="{{ url('admin/address/edit/' . $address->id) }}" class="btn btn-primary me-1">Edit</a>
+						<a href="{{ url('admin/address/delete/' . $address->id) }}" onclick="return confirm('삭제하시겠습니까?')" class="btn btn-danger">Delete</a>
+					</td>
 				  </tr>
 
 				  @empty
