@@ -221,4 +221,25 @@ class LocationController extends Controller
 
     }
 
+    public function AddressEdit($id) {
+        $countries = Countries::get();
+        $address = Address::findOrFail($id);
+        $states = State::where('countries_id', '=', $address->countries_id)->get();
+        $cities = City::where('state_id', '=', $address->state_id)->get();
+
+        
+        return view('admin.address.edit', compact('countries', 'address', 'states', 'cities'));
+    }
+
+    public function AddressUpdate($id, Request $request) {
+        $address = Address::findOrFail($id);
+        $address->countries_id = $request->countries_id;
+        $address->state_id = $request->state_id;
+        $address->city_id = $request->city_id;
+        $address->address = trim($request->address);
+        $address->save();
+
+        return redirect('admin/address')->with('success', 'Address has been updated successfully');
+    }
+
 }

@@ -91,7 +91,7 @@
 					<td>{{ $address->address }}</td>
 					<td>{{ $address->created_at }}</td>
 					<td>{{ $address->updated_at }}</td>
-					<td>~</td>
+					<td><a href="{{ url('admin/address/edit/' . $address->id) }}" class="btn btn-primary">Edit</a></td>
 				  </tr>
 
 				  @empty
