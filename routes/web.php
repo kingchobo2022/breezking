@@ -136,6 +136,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('address', [LocationController::class, 'AddressList']);
     Route::get('address/add', [LocationController::class, 'AddressAdd']);
     Route::get('get-cities-name/{stateId}', [LocationController::class, 'GetCitiesName']);
+    Route::post('address/add', [LocationController::class, 'AddressStore']);
+
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

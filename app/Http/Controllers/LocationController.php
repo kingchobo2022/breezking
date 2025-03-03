@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\City;
 use App\Models\Countries;
 use App\Models\State;
@@ -197,6 +198,26 @@ class LocationController extends Controller
         $cities = City::where('state_id', '=', $stateId)->get();
 
         return response()->json($cities);
+    }
+
+    public function AddressStore(Request $request) {
+
+        $request->validate([
+            'address' => 'required|string|max:255',
+            'state_id' => 'required|integer',
+            'city_id' => 'required|integer',
+            'countries_id' => 'required|integer'
+        ]);
+
+        $address = new Address;
+        $address->countries_id = $request->countries_id;
+        $address->state_id = $request->state_id;
+        $address->city_id = $request->city_id;
+        $address->address = trim($request->address);
+        $address->save();
+
+        return redirect('admin/address')->with('success', 'Address has been added successfully');
+
     }
 
 }
