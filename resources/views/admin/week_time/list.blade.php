@@ -9,6 +9,37 @@
 	  </ol>
 	</nav>
 
+		{{-- Search Start --}}
+		<div class="row mb-2">
+			<div class="col-lg-12 stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h6 class="card-title">Search Week Time</h6>
+						<form method="get" action="">
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="mb-3">
+										<label for="" class="form-label">Id</label>
+										<input type="text" name="id" value="{{ Request()->id }}" class="form-control" placeholder="Enter id">
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="mb-3">
+										<label for="" class="form-label">Week time name</label>
+										<input type="text" name="name" value="{{ Request()->name }}" class="form-control" placeholder="Enter Week time name">
+									</div>
+								</div>
+							</div>
+							<button class="btn btn-primary me-1">Search</button>
+							<a href="{{ url('admin/week_time') }}" class="btn btn-danger">Reset</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{-- Search End --}}
+	
+
 	<div class="row">
 		<div class="col-lg-12 stretch-card">
 		  <div class="card">
