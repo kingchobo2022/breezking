@@ -10,6 +10,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
+use App\Http\Controllers\SendPDFController;
 use App\Http\Controllers\SMTPController;
 use App\Http\Controllers\UserTimeController;
 use Illuminate\Support\Facades\Route;
@@ -140,6 +141,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('address/edit/{id}', [LocationController::class, 'AddressEdit']);
     Route::post('address/edit/{id}', [LocationController::class, 'AddressUpdate']);
     Route::get('address/delete/{id}', [LocationController::class, 'AddressDelete']);
+
+    Route::get('send_pdf', [SendPDFController::class, 'sendPdf']);
+    Route::post('send_pdf', [SendPDFController::class, 'sendPdfPost']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
