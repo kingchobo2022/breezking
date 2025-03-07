@@ -49,7 +49,12 @@
 			  <div class="d-flex justify-content-between align-items-center flex-wrap">
 				<h4 class="card-title">Blog List</h4>
 				<div class="d-flex align-items-center">
+
+				  <button class="btn btn-danger me-2" id="btn_delete_all">Delete All</button>
+
 				  <a href="{{ route('admin.blog.add') }}" class="btn btn-primary">Add Blog</a>
+
+
 				</div>
 			  </div>
 			  
@@ -105,4 +110,25 @@
 
 
 </div>	  
+
+<form id="delete-form" method="POST" style="display:none">
+	@csrf
+	@method('DELETE')
+</form>
+
+@endsection
+
+@section('script')
+<script>
+const btn_delete_all = document.getElementById('btn_delete_all');
+btn_delete_all.addEventListener("click", function(){
+	if(!confirm('전체 데이터를 모두 삭제하시겠습니까?')) {
+		return;
+	}
+
+	const f = document.getElementById('delete-form');
+	f.action = "{{ url('admin/blog/truncate') }}";
+	f.submit();
+});	
+</script>	
 @endsection

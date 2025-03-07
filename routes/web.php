@@ -144,6 +144,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('send_pdf', [SendPDFController::class, 'sendPdf']);
     Route::post('send_pdf', [SendPDFController::class, 'sendPdfPost']);
+
+    Route::delete('blog/truncate', [BlogController::class, 'BlogTruncate']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
