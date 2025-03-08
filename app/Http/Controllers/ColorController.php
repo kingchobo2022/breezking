@@ -9,7 +9,7 @@ use Barryvdh\DomPDF\Facade\PDF;
 class ColorController extends Controller
 {
     public function ColorList() {
-        $colors = Color::get();
+        $colors = Color::getAllData();
         return view('admin.color.list', compact('colors'));
     }
 
