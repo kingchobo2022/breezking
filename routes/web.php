@@ -93,6 +93,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::get('color/edit/{id}', [ColorController::class, 'ColorEdit']);
     Route::post('color/edit/{id}', [ColorController::class, 'ColorUpdate']);
     Route::get('color/delete/{id}', [ColorController::class, 'ColorDelete']);
+    Route::post('color/change_status', [ColorController::class, 'ColorChangeStatus']);
 
     Route::get('order', [OrderController::class, 'OrderList']);
     Route::get('order/add', [OrderController::class, 'OrderAdd']);

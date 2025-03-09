@@ -1,4 +1,48 @@
 @extends('admin.admin_dashboard')
+@section('style')
+<style>
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+}
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	transition: 0.4s;
+	border-radius: 34px;
+}
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: #fff;
+	transition: 0.4s;
+	border-radius: 50%;
+}
+input:checked + .slider {
+	background-color: #2196F3;
+}
+input:checked + .slider:before {
+	transform: translateX(26px);
+}
+
+</style>	
+@endsection
 @section('admin')
 <div class="page-content">
 	@include('inc_message')
@@ -67,6 +111,7 @@
 					<tr>
 					  <th>#</th>
 					  <th>Name</th>
+					  <th>Status</th>
 					  <th>Created At</th>
 					  <th>Action</th>
 					</tr>
@@ -76,6 +121,12 @@
 					<tr class="table-info text-dark">
 					  <td>{{ $color->id }}</td>
 					  <td>{{ $color->name }}</td>
+					  <td>
+						<label class="switch">
+							<input type="checkbox" class="statusCheck" data-id="{{ $color->id }}" {{ $color->status ? 'checked' : '' }}>
+							<span class="slider"></span>
+						</label>
+					  </td>
 					  <td>{{ $color->created_at }}</td>
 					  <td>
 						<a class="dropdown-item d-flex align-items-center" href="{{ url('admin/color/edit/'.$color->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm me-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> <span class="">수정</span></a>
@@ -97,4 +148,35 @@
 
 
 </div>	  
+@endsection
+
+@section('script')
+<script>
+const scs = document.querySelectorAll('.statusCheck');
+scs.forEach(function(checkbox){
+	checkbox.addEventListener('change', function(){
+		const status = this.checked ? 1 : 0;
+		const itemId = this.dataset.id;
+		
+		fetch("{{ url('admin/color/change_status') }}", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"X-CSRF-TOKEN": "{{ csrf_token() }}"
+			},
+			body: JSON.stringify({
+				id: itemId,
+				status: status
+			})
+		})
+		.then(response => response.json())
+		.then(data => {
+			alert(data.message);
+		})
+		.catch(error => {
+			alert('Error: ' + error);
+		});
+	});
+});
+</script>	
 @endsection

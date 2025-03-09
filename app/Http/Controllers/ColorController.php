@@ -46,6 +46,16 @@ class ColorController extends Controller
         return redirect('admin/color')->with('success', 'Color Successfully Delete');
     }
 
+    public function ColorChangeStatus(Request $request) {
+        $color = Color::find($request->id);
+        if($color) {
+            $color->status = $request->status;
+            $color->save();
+            return response()->json(['message' => 'Status Succssfull Change']);
+        }
+        return response()->json(['message' => 'Data Not Found']);
+    }
+
     public function PdfDemo() {
         $title = 'Welcome New PDF';
         $date = date('Y-m-d');
