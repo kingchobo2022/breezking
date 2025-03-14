@@ -44,4 +44,10 @@ class TransactionsController extends Controller
 
         return redirect()->back()->with('success', 'Transaction Successfully Add');
     }
+
+    public function AgentTransactionsList() {
+        $transactions = Transactions::getData(Auth::user()->id);
+
+        return view('agent/transactions/list', compact('transactions'));
+    }
 }
