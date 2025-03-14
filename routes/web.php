@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\SendPDFController;
 use App\Http\Controllers\SMTPController;
+use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\UserTimeController;
 use Illuminate\Support\Facades\Route;
 
@@ -147,12 +148,17 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::post('send_pdf', [SendPDFController::class, 'sendPdfPost']);
 
     Route::delete('blog/truncate', [BlogController::class, 'BlogTruncate']);
+
+    Route::get('transactions', [TransactionsController::class, 'TransactionsList']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
     Route::get('agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard');
     Route::get('agent/logout', [AdminController::class, 'AdminLogout'])->name('agent.logout');
     Route::get('agent/email/inbox', [AgentController::class, 'AgentEmailInbox']);
+
+    Route::get('agent/transactions', [TransactionsController::class, 'AgentTransactionsAdd']);
+    Route::post('agent/transactions/add', [TransactionsController::class, 'AgentTransactionsStore']);
 });
 
 Route::get('set_new_password/{token}', [AdminController::class, 'SetNewPassword']);

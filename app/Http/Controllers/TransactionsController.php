@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Transactions;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Svg\Tag\Rect;
+
+class TransactionsController extends Controller
+{
+    public function TransactionsList(Request $request) {
+        $transactions = Transactions::select('transactions.*', 'users.name')
+            ->join('users', 'users.id', '=', 'transactions.user_id')
+            ->orderBy('transactions.id', 'desc');
+        if(!empty($request->id)) {
+            $transactions = $transactions->where('transactions.id', '=', $request->id);
+        }
+        if(!empty($request->user_name)) {
+            $transactions = $transactions->where('users.name', 'like', '%'. $request->user_name .'%');
+        }
+        if($request->is_payment == '1' || $request->is_payment == '0') {
+            $transactions = $transactions->where('transactions.is_payment', '=', $request->is_payment);
+        }
+
+
+        $transactions = $transactions->get();
+
+        return view('admin.transactions.list', compact('transactions'));        
+    }
+
+    public function AgentTransactionsAdd() {
+        return view('agent.transactions.add');
+    }
+
+    public function AgentTransactionsStore(Request $request) {
+        $transaction = new Transactions;
+        $transaction->user_id = Auth::user()->id; // 현재 로그인한 세션의 아이디
+        $transaction->order_number = trim($request->order_number);
+        $transaction->transaction_id = trim($request->transaction_id);
+        $transaction->amount = trim($request->amount);
+        $transaction->is_payment = $request->is_payment;
+        $transaction->save();
+
+        return redirect()->back()->with('success', 'Transaction Successfully Add');
+    }
+}
