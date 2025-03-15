@@ -150,6 +150,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::delete('blog/truncate', [BlogController::class, 'BlogTruncate']);
 
     Route::get('transactions', [TransactionsController::class, 'TransactionsList']);
+    Route::get('transactions/delete/{id}', [TransactionsController::class, 'TransactionsDelete']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
@@ -159,7 +160,7 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
 
     Route::get('agent/transactions/add', [TransactionsController::class, 'AgentTransactionsAdd']);
     Route::post('agent/transactions/add', [TransactionsController::class, 'AgentTransactionsStore']);
-    Route::get('agent/transactions', [TransactionsController::class, 'AgentTransactionsList']);
+
 });
 
 Route::get('set_new_password/{token}', [AdminController::class, 'SetNewPassword']);

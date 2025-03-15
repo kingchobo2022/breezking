@@ -73,6 +73,7 @@
 					  <th>Payment Status</th>
 					  <th>Created At</th>
 					  <th>updated_at</th>
+					  <th>Action</th>
 					</tr>
 				  </thead>
 				  <tbody>
@@ -99,6 +100,7 @@
 						</td>
 						<td>{{ $transaction->created_at }}</td>
 						<td>{{ $transaction->updated_at }}</td>
+						<td><button type="button" class="btn btn-sm btn-danger btn-trans-delete" data-id="{{ $transaction->id }}">Delete</button></td>
 					</tr>
 					@endforeach  
 
@@ -123,4 +125,19 @@
 
 
 </div>	  
+@endsection
+
+@section('script')
+<script>
+const btn_trans = document.querySelectorAll(".btn-trans-delete");
+btn_trans.forEach( el => {
+	el.addEventListener("click", function(){
+		//alert(el.dataset.id);
+		if(!confirm('삭제하시겠습니까?')) {
+			return false;
+		}
+		self.location.href="{{ url('admin/transactions/delete') }}" + "/" + el.dataset.id;
+	});
+});	
+</script>	
 @endsection

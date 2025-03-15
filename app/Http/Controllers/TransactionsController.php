@@ -23,11 +23,19 @@ class TransactionsController extends Controller
             $transactions = $transactions->where('transactions.is_payment', '=', $request->is_payment);
         }
 
-
-        $transactions = $transactions->get();
-
+        $transactions = $transactions->where('transactions.is_delete' , '=', 0)->get();
+        
         return view('admin.transactions.list', compact('transactions'));        
     }
+
+    public function TransactionsDelete($id) {
+        $transaction = Transactions::findOrFail($id);
+        $transaction->is_delete = 1;
+        $transaction->save();
+        
+        return redirect()->back()->with('success', 'Transaction Successfully Soft Deleted');
+    }
+
 
     public function AgentTransactionsAdd() {
         return view('agent.transactions.add');
