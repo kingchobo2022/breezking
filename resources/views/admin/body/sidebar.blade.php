@@ -55,6 +55,12 @@
           <span class="link-title">Transactions</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('admin/full_calendar') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Full Calendar</span>
+        </a>
+      </li>
 
 
 

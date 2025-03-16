@@ -5,6 +5,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
@@ -33,6 +34,10 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
+
+    Route::get('full_calendar', [FullCalendarController::class, 'index']);
+    Route::post('full_calendar/action', [FullCalendarController::class, 'action']);
+
     Route::get('dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
     Route::get('profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
