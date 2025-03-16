@@ -36,6 +36,22 @@ class TransactionsController extends Controller
         return redirect()->back()->with('success', 'Transaction Successfully Soft Deleted');
     }
 
+    public function TransactionsEdit($id) {
+        $transaction = Transactions::findOrFail($id);
+
+        return view('admin.transactions.edit', compact('transaction'));
+    }
+
+    public function TransactionsUpdate($id, Request $request) {
+        $transaction = Transactions::findOrFail($id);
+        $transaction->order_number = trim($request->order_number);
+        $transaction->transaction_id = trim($request->transaction_id);
+        $transaction->amount = trim($request->amount);
+        $transaction->is_payment = $request->is_payment;
+        $transaction->save();
+
+        return redirect('admin/transactions')->with('success', 'Transaction Successfully Update');
+    }
 
     public function AgentTransactionsAdd() {
         return view('agent.transactions.add');

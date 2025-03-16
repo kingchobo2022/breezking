@@ -100,7 +100,10 @@
 						</td>
 						<td>{{ $transaction->created_at }}</td>
 						<td>{{ $transaction->updated_at }}</td>
-						<td><button type="button" class="btn btn-sm btn-danger btn-trans-delete" data-id="{{ $transaction->id }}">Delete</button></td>
+						<td>
+							<button type="button" class="btn btn-sm btn-primary btn-trans-edit" data-id="{{ $transaction->id }}">Edit</button>
+							<button type="button" class="btn btn-sm btn-danger btn-trans-delete" data-id="{{ $transaction->id }}">Delete</button>
+						</td>
 					</tr>
 					@endforeach  
 
@@ -129,6 +132,7 @@
 
 @section('script')
 <script>
+/* Delete */	
 const btn_trans = document.querySelectorAll(".btn-trans-delete");
 btn_trans.forEach( el => {
 	el.addEventListener("click", function(){
@@ -139,5 +143,13 @@ btn_trans.forEach( el => {
 		self.location.href="{{ url('admin/transactions/delete') }}" + "/" + el.dataset.id;
 	});
 });	
+/* Edit */	
+const btn_edit_trans = document.querySelectorAll(".btn-trans-edit");
+btn_edit_trans.forEach( el => {
+	el.addEventListener("click", function(){
+		self.location.href="{{ url('admin/transactions/edit') }}" + "/" + el.dataset.id;
+	});
+});	
+
 </script>	
 @endsection

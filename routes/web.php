@@ -151,6 +151,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('transactions', [TransactionsController::class, 'TransactionsList']);
     Route::get('transactions/delete/{id}', [TransactionsController::class, 'TransactionsDelete']);
+    Route::get('transactions/edit/{id}', [TransactionsController::class, 'TransactionsEdit']);
+    Route::post('transactions/edit/{id}', [TransactionsController::class, 'TransactionsUpdate'])->name('admin.transactions.update');
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
