@@ -111,6 +111,8 @@
 
   {{-- Search Box End --}}
 
+  <input type="text" class="form-control mb-3" name="user_name" id="user_name" placeholder="Enter User Name" autocomplete="off">
+
   <div class="row">
     <div class="col-lg-12 stretch-card">
       <div class="card">
@@ -212,6 +214,17 @@
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+<script>
+  var path = "{{ url('admin/users/typeahead_autocomple') }}";
+  $('#user_name').typeahead({
+    source: function(query, process){
+      return $.get(path, {query:query}, function(data){
+        return process(data);
+      });
+    }
+  });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.5/dist/js/lightbox.min.js"></script>
 <script>
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
