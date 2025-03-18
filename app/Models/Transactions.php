@@ -15,6 +15,6 @@ class Transactions extends Model
             ->join('users', 'users.id', '=', 'transactions.user_id')
             ->where('transactions.user_id', '=', $user_id)
             ->orderBy('transactions.id', 'desc')
-            ->paginate(1);
+            ->paginate(10);
     }
 }

@@ -74,4 +74,10 @@ class TransactionsController extends Controller
 
         return view('agent/transactions/list', compact('transactions'));
     }
+
+    public function AgentTransactionsDestroy(Request $request) {
+        $transaction = Transactions::findOrFail($request->id);
+        $transaction->delete();
+        return redirect('agent/transactions')->with('success', 'Transaction Successfully Delete');
+    }
 }

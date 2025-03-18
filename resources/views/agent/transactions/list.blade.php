@@ -34,6 +34,7 @@
 					  <th>Payment Status</th>
 					  <th>Created At</th>
 					  <th>Updated At</th>
+					  <th>Action</th>
 					</tr>
 				  </thead>
 				  <tbody>
@@ -60,6 +61,7 @@
 						</td>
 						<td>{{ $transaction->created_at }}</td>
 						<td>{{ $transaction->updated_at }}</td>
+						<td><button class="btn btn-danger btn-sm btn-delete" data-id="{{ $transaction->id }}">Delete</button></td>
 
 					</tr>	
 					@endforeach
@@ -82,5 +84,37 @@
 
 
 </div>	  
-	
+
+<form method="post" name="delform" action="{{ url('agent/transactions/destroy') }}">
+	@csrf
+	@method('DELETE')
+	<input type="hidden" name="id">
+</form>
+
 @endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
+<script>
+document.querySelectorAll(".btn-delete").forEach(function(button){
+	button.addEventListener("click", function() {
+		Swal.fire({
+			title: "Are you sure?",
+			text: "Yon won't be able to revert this!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const f = document.delform;
+				f.id.value = this.dataset.id;
+				f.submit();
+			}
+		});
+	});
+});	
+</script>
+@endsection
+

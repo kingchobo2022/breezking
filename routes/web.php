@@ -167,8 +167,10 @@ Route::middleware(['auth', 'role:agent'])->group(function(){
     Route::get('agent/logout', [AdminController::class, 'AdminLogout'])->name('agent.logout');
     Route::get('agent/email/inbox', [AgentController::class, 'AgentEmailInbox']);
 
+    Route::get('agent/transactions', [TransactionsController::class, 'AgentTransactionsList']);
     Route::get('agent/transactions/add', [TransactionsController::class, 'AgentTransactionsAdd']);
     Route::post('agent/transactions/add', [TransactionsController::class, 'AgentTransactionsStore']);
+    Route::delete('agent/transactions/destroy', [TransactionsController::class, 'AgentTransactionsDestroy']);
 
 });
 
