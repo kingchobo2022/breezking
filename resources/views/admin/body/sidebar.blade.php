@@ -61,9 +61,12 @@
           <span class="link-title">Full Calendar</span>
         </a>
       </li>
-
-
-
+      <li class="nav-item">
+        <a href="{{ url('admin/change_password') }}" class="nav-link">
+          <i class="link-icon" data-feather="box"></i>
+          <span class="link-title">Change Password</span>
+        </a>
+      </li>
 
       <li class="nav-item nav-category">User Week</li>
       <li class="nav-item @if(Request::segment(2) == 'week') active @endif">

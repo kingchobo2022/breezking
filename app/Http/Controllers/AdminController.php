@@ -13,6 +13,30 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
+    public function AdminChangePassword(Request $request)
+    {
+        return view('admin.change_password.update');
+    }
+
+    public function AdminUpdatePassword(Request $request)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            return redirect('admin/change_password')->with('error', 'The current password doest not match.');
+        }
+
+        if (trim($request->new_password) != trim($request->confirm_password)) {
+            return redirect('admin/change_password')->with('error', 'The passwords do not match.');
+        }
+
+        $user->password = Hash::make(trim($request->new_password));
+        $user->save();
+
+        return redirect('admin/change_password')->with('success', 'The password has been changed.');
+    }
+
+
     public function AdminUserTypeaheadAutocomplete(Request $request) {
         $data = $request->all();
 
