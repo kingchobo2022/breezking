@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\LocationController;
@@ -34,6 +35,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
+
+    Route::get('discount_code', [DiscountController::class, 'DiscountCode']);
+    Route::get('discount_code/add', [DiscountController::class, 'DiscountCodeAdd']);
 
     Route::get('change_password', [AdminController::class, 'AdminChangePassword']);
     Route::post('change_password/update', [AdminController::class, 'AdminUpdatePassword']);
