@@ -38,6 +38,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('discount_code', [DiscountController::class, 'DiscountCode']);
     Route::get('discount_code/add', [DiscountController::class, 'DiscountCodeAdd']);
+    Route::post('discount_code/add', [DiscountController::class, 'DiscountCodeStore']);
 
     Route::get('change_password', [AdminController::class, 'AdminChangePassword']);
     Route::post('change_password/update', [AdminController::class, 'AdminUpdatePassword']);
