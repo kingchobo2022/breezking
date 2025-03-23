@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class DiscountController extends Controller
 {
     public function DiscountCode() {
-        $discount_codes = DiscountCode::get();
+        $discount_codes = DiscountCode::getJoinData();
         return view('admin.discount_code.list', compact('discount_codes'));
     }
 

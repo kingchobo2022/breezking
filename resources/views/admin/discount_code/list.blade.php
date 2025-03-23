@@ -27,6 +27,7 @@
 				  <thead>
 					<tr>
 					  <th>ID</th>
+                      <td>User</td>
                       <th>Discount Code</th>
                       <th>Discount Price</th>
                       <th>Expiry Date</th>
@@ -41,6 +42,7 @@
                   @foreach($discount_codes as $discount_code)
                     <tr>
                         <td>{{ $discount_code->id }}</td>
+                        <td>{{ $discount_code->user_name }}</td>
                         <td>{{ $discount_code->discount_code }}</td>
                         <td>{{ $discount_code->discount_price }}</td>
                         <td>{{ $discount_code->expiry_date }}</td>
@@ -55,7 +57,7 @@
 				</table>
 			  </div>
 			  <div class="mt-3">
-				
+				{{ $discount_codes->appends(Request::except('page'))->links() }}
 			  </div>
 			</div>
 		  </div>
