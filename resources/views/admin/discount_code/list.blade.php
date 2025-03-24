@@ -9,6 +9,45 @@
 	  </ol>
 	</nav>
 
+	<div class="col-lg-12 stretch-card mb-3">
+		<div class="card">
+			<div class="card-body">
+				<h6 class="card-title">Search Discount Code</h6>
+				<form method="get" action="">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="mb-3">
+								<label for="" class="form-label">Id</label>
+								<input type="text" name="id" value="{{ Request()->id }}" class="form-control" placeholder="Enter id">
+							</div>
+						</div>				
+						<div class="col-sm-3">			
+							<div class="mb-3">
+								<label for="" class="form-label">User Name</label>
+								<input type="text" name="user_name" value="{{ Request()->user_name }}" class="form-control" placeholder="Enter User Name">
+							</div>
+						</div>
+						<div class="col-sm-3">			
+							<div class="mb-3">
+								<label for="" class="form-label">Discount Code</label>
+								<input type="text" name="discount_code" value="{{ Request()->discount_code }}" class="form-control" placeholder="Enter Discount Code">
+							</div>
+						</div>
+						<div class="col-sm-3">			
+							<div class="mb-3">
+								<label for="" class="form-label">Discount Price</label>
+								<input type="text" name="discount_price" value="{{ Request()->discount_price }}" class="form-control" placeholder="Enter Discount Price">
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-primary me-1">Search</button>
+					<a href="{{ url('admin/discount_code') }}" class="btn btn-danger">Reset</a>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-lg-12 stretch-card">
 		  <div class="card">
@@ -50,7 +89,7 @@
                         <td>{{ $discount_code->usages == "1" ? "Uploaded" : "One Time" }}</td>
                         <td>{{ $discount_code->created_at }}</td>
                         <td>{{ $discount_code->updated_at }}</td>
-                        <td>-</td>
+                        <td><button type="button" class="btn btn-info bin-sm btn_edit" data-id="{{ $discount_code->id }}" data-user_name="{{ $discount_code->user_name }}">Edit</button></td>
                     </tr>
                   @endforeach
                   </tbody>
@@ -67,4 +106,16 @@
 
 
 </div>	  
+@endsection
+
+@section('script')
+<script>
+const btn_edits = document.querySelectorAll('.btn_edit');
+btn_edits.forEach(btn_edit => {
+	btn_edit.addEventListener('click', (e) => {
+		self.location.href="{{ url('admin/discount_code/edit') }}/" + btn_edit.dataset.id;
+	});
+});
+				
+</script>
 @endsection
