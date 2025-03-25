@@ -25,7 +25,9 @@ class DiscountCode extends Model
         }   
         if (!empty(Request::get('discount_price'))) {
             $return = $return->where('discount_code.discount_price', 'like', '%'. Request::get('discount_price'). '%');
-        }   
+        }
+        
+        $return = $return->where('discount_code.is_delete', '=', '0');
 
         //dd($return->toSql(), $return->getBindings());
 

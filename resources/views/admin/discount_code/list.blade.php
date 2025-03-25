@@ -89,7 +89,9 @@
                         <td>{{ $discount_code->usages == "1" ? "Uploaded" : "One Time" }}</td>
                         <td>{{ $discount_code->created_at }}</td>
                         <td>{{ $discount_code->updated_at }}</td>
-                        <td><button type="button" class="btn btn-info bin-sm btn_edit" data-id="{{ $discount_code->id }}" data-user_name="{{ $discount_code->user_name }}">Edit</button></td>
+                        <td><button type="button" class="btn btn-info bin-sm btn_edit" data-id="{{ $discount_code->id }}">Edit</button>
+						<button type="button" class="btn btn-danger bin-sm btn_delete ms-1" data-id="{{ $discount_code->id }}">Delete</button>
+					</td>
                     </tr>
                   @endforeach
                   </tbody>
@@ -103,9 +105,16 @@
 		</div>
 	  </div>
 	
+	<form name="tmp_delete" action="{{ url('admin/discount_code/delete') }}" method="post" }}">
+		@csrf
+		@method('DELETE')
+		<input type="hidden" name="id">
+	</form>	  
 
 
-</div>	  
+</div>	
+
+
 @endsection
 
 @section('script')
@@ -114,6 +123,17 @@ const btn_edits = document.querySelectorAll('.btn_edit');
 btn_edits.forEach(btn_edit => {
 	btn_edit.addEventListener('click', (e) => {
 		self.location.href="{{ url('admin/discount_code/edit') }}/" + btn_edit.dataset.id;
+	});
+});
+const btn_deletes = document.querySelectorAll('.btn_delete');
+btn_deletes.forEach(btn_delete => {
+	btn_delete.addEventListener('click', (e) => {
+		if (!confirm('삭제하시겠습니까?')) {
+			return false;
+		}
+
+		document.tmp_delete.id.value = btn_delete.dataset.id;
+		document.tmp_delete.submit();
 	});
 });
 				

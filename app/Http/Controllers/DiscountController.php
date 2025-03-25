@@ -50,4 +50,13 @@ class DiscountController extends Controller
         return redirect('admin/discount_code')->with('success', 'Recode Successfully Update');
     }
 
+    public function DiscountCodeDelete(Request $request) {
+        $discount_code = DiscountCode::findOrFail($request->id);
+        // $discount_code->delete();
+        $discount_code->is_delete = 1;
+        $discount_code->save();
+        
+        return redirect('admin/discount_code')->with('success', 'Recode Successfully Delete');
+    }
+
 }
