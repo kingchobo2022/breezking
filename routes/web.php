@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\SendPDFController;
 use App\Http\Controllers\SMTPController;
+use App\Http\Controllers\SupportController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\UserTimeController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
+
+    Route::get('support', [SupportController::class, 'Support']);
 
     Route::get('discount_code', [DiscountController::class, 'DiscountCode']);
     Route::get('discount_code/add', [DiscountController::class, 'DiscountCodeAdd']);
