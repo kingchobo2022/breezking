@@ -17,4 +17,9 @@ class SupportController extends Controller
         return view('admin.support.list', compact('supports', 'users'));
         
     }
+
+    public function Reply($id)
+    {
+        return view('admin.support.reply');
+    }
 }

@@ -84,6 +84,7 @@
                       <th>Status</th>
 					  <th>Created At</th>
 					  <th>updated_at</th>
+					  <th>Action</th>
 					</tr>
 				  </thead>
 				  <tbody>
@@ -93,9 +94,10 @@
                         <td>{{ $support->user->name }}</td>
                         <td>{{ $support->title }}</td>
                         <td>{{ $support->description }}</td>
-                        <td>{{ $support->status }}</td>
+                        <td>{{ $support->status == 0 ? 'Open' : 'Closed' }}</td>
                         <td>{{ $support->created_at }}</td>
                         <td>{{ $support->updated_at }}</td>
+						<td><a href="{{ url('admin/support/reply/'. $support->id) }}" class="btn btn-success btn-sm">Reply</a></td>
                     </tr>
                     @empty
                     <tr>

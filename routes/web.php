@@ -38,6 +38,8 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('support', [SupportController::class, 'Support']);
+    Route::get('support/reply/{id}', [SupportController::class, 'Reply']);
+    
 
     Route::get('discount_code', [DiscountController::class, 'DiscountCode']);
     Route::get('discount_code/add', [DiscountController::class, 'DiscountCodeAdd']);
