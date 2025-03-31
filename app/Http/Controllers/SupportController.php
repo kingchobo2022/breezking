@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Support;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SupportController extends Controller
@@ -11,7 +12,9 @@ class SupportController extends Controller
     {
         $supports = Support::getSupportList();
 
-        return view('admin.support.list', compact('supports'));
+        $users = User::all();
+
+        return view('admin.support.list', compact('supports', 'users'));
         
     }
 }

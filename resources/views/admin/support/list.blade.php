@@ -9,6 +9,58 @@
 	  </ol>
 	</nav>
 
+	<div class="row mb-2">
+		<div class="col-lg-12 stretch-card">
+			<div class="card">
+				<div class="card-body">
+					<h6 class="card-title">Search Support</h6>
+					<form action="" method="get">
+						<div class="row">
+							<div class="col-sm-2">
+								<div class="mb-3">
+									<label for="" class="form-label">Id</label>
+									<input type="text" name="id" value="{{ Request()->id }}" class="form-control" placeholder="Enter id">
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="mb-3">
+									<label for="" class="form-label">Username</label>
+									<select name="user_id" id="" class="form-select">
+										<option value="">Select User</option>
+										@foreach($users as $user)
+										<option value="{{ $user->id }}" {{ Request()->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="mb-3">
+									<label for="" class="form-label">Title</label>
+									<input type="text" name="title" value="{{ Request()->title }}" class="form-control" placeholder="Enter Title">
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="mb-3">
+									<label for="" class="form-label">Status</label>
+									<select name="status" id="" class="form-select">
+										<option value="">Select Status</option>
+										<option value="0" {{ Request()->status == '0' ? 'selected' : '' }}>Open</option>
+										<option value="1" {{ Request()->status == '1' ? 'selected' : '' }}>Closed</option>
+									</select>
+								</div>
+							</div>
+
+
+						</div>
+						<button type="submit" class="btn btn-primary me-1">Search</button>
+						<a href="{{ url('admin/support') }}" class="btn btn-danger">Reset</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<div class="row">
 		<div class="col-lg-12 stretch-card">
 		  <div class="card">
