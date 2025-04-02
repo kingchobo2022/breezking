@@ -20,6 +20,8 @@ class SupportController extends Controller
 
     public function Reply($id)
     {
-        return view('admin.support.reply');
+        $support = Support::where('id', '=', $id)->first();
+        
+        return view('admin.support.reply', compact('support'));
     }
 }

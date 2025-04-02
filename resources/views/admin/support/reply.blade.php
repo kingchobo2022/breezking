@@ -19,38 +19,43 @@
                 <div class="item in">
                     <div class="text">
                         <div class="heading">
-                            <a href="#">Hello</a>
-                            <span class="date">2020-11-11</span>
+                            <a href="#">{{ $support->user->name }}</a>
+                            <span class="date">{{ $support->created_at }}</span>
                         </div>
                         <div>
-                            <strong>Title: </strong> Title <br>
-                            <strong>Description: </strong> Welcome
+                            <strong>Title: </strong> {{ $support->title }} <br>
+                            <strong>Description: </strong> {{ $support->description }}
                         </div>
                     </div>
                 </div>
 
+                @foreach($support->getSupportReply as $reply)
+
+                @if(Auth::user()->id == $reply->user_id)
                 <div class="item">
                   <div class="text">
                     <div class="heading">
-                      <a href="#">Hello</a>
-                      <span class="date">YYYY-mm-dd</span>
+                      <a href="#">{{ $reply->user->name }}</a>
+                      <span class="date">{{ $reply->created_at }}</span>
                     </div>
-                    Good work  
+                    {{ $reply->description }}
                   </div>
                 </div>
-               
+               @else
                 <div class="item in">
                   <div class="text">
                     <div class="heading">
-                      <a href="#">Hello</a>
-                      <span class="date">YYYY-mm-dd</span>
+                    <a href="#">{{ $reply->user->name }}</a>
+                      <span class="date">{{ $reply->created_at }}</span>
                     </div>
-                    Good work  
+                    {{ $reply->description }}
                   </div>
                 </div>
-
+                @endif
+                
+                @endforeach
             </div>
-
+            @if($support->status == '0') 
             <div class="panel panel-default push-up-10">
                 <div class="panel-body panel-body-search">
                   <form action="" enctype="multipart/form-data" method="post">
@@ -65,7 +70,7 @@
                   </form>
                 </div>
             </div>
-
+            @endif
           </div>
 
         </div>
