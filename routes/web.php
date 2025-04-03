@@ -39,7 +39,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('support', [SupportController::class, 'Support']);
     Route::get('support/reply/{id}', [SupportController::class, 'Reply']);
-    
+    Route::post('support/reply/{id}', [SupportController::class, 'ReplyStore']);
+    Route::post('support/change_status', [SupportController::class, 'ChangeStatus']);
 
     Route::get('discount_code', [DiscountController::class, 'DiscountCode']);
     Route::get('discount_code/add', [DiscountController::class, 'DiscountCodeAdd']);

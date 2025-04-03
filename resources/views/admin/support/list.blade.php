@@ -94,7 +94,16 @@
                         <td>{{ $support->user->name }}</td>
                         <td>{{ $support->title }}</td>
                         <td>{{ $support->description }}</td>
-                        <td>{{ $support->status == 0 ? 'Open' : 'Closed' }}</td>
+                        <td>
+							@if(Auth::user()->role == 'admin')
+								<select name="status" class="form-select ChangeSupportSatus" data-id="{{ $support->id }}">
+									<option value="0" {{ $support->status == '0' ? 'selected' : '' }}>Open</option>
+									<option value="1" {{ $support->status == '1' ? 'selected' : '' }}>Closed</option>
+								</select>
+							@else
+								{{ $support->status == '0' ? 'Open' : 'Closed' }}								
+							@endif
+						</td>
                         <td>{{ $support->created_at }}</td>
                         <td>{{ $support->updated_at }}</td>
 						<td><a href="{{ url('admin/support/reply/'. $support->id) }}" class="btn btn-success btn-sm">Reply</a></td>
@@ -118,4 +127,41 @@
 
 
 </div>	  
+@endsection
+
+@section('script')
+<script>
+const ChangeSupportSatus = document.querySelectorAll('.ChangeSupportSatus');
+ChangeSupportSatus.forEach(selectbox => {
+	selectbox.addEventListener("change", (e) => {
+		//alert(selectbox.dataset.id);
+		const f1 = new FormData();
+		f1.append('id', selectbox.dataset.id);
+		f1.append('status', selectbox.value);
+		fetch("{{ url('admin/support/change_status') }}", {
+			method: "POST",
+			headers: {
+				"X-CSRF-TOKEN": "{{ csrf_token() }}",
+			},
+			body: f1,
+		})
+		.then(response => {
+			if(!response.ok) {
+				throw new Error('통신에 실패했습니다.');
+			}
+			return response.json();
+		})
+		.then(data => {
+			if (data.result == 'success') {
+				alert('성공적으로 상탯값이 변경되었습니다.');
+			} else {
+				alert('알수 없는 오류가 발생했습니다.');
+			}
+		})
+		.cathc(error => {
+			alert(error.message);
+		});
+	});
+});	
+</script>
 @endsection

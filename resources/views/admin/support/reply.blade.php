@@ -1,9 +1,10 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 <div class="page-content">
+  @include('inc_message')
   <nav class="page-breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{ url('admin/city') }}">Reply</a></li>
+      <li class="breadcrumb-item"><a href="{{ url('admin/support') }}">Reply</a></li>
       <li class="breadcrumb-item active" aria-current="page">Support Reply</li>
     </ol>
   </nav>
