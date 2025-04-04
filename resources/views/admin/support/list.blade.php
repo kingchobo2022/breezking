@@ -82,6 +82,7 @@
 					  <th>Title</th>
 					  <th>Description</th>
                       <th>Status</th>
+					  <th>On and Off</th>
 					  <th>Created At</th>
 					  <th>updated_at</th>
 					  <th>Action</th>
@@ -104,6 +105,12 @@
 								{{ $support->status == '0' ? 'Open' : 'Closed' }}								
 							@endif
 						</td>
+						<th>@if($support->status == '0')
+							<a href="{{ url('admin/support/onoff/'. $support->id) }}" class="btn btn-success btn-sm">On</a>
+							@else
+							<a href="{{ url('admin/support/onoff/'. $support->id) }}" class="btn btn-danger btn-sm">Off</a>
+							@endif
+						</th>
                         <td>{{ $support->created_at }}</td>
                         <td>{{ $support->updated_at }}</td>
 						<td><a href="{{ url('admin/support/reply/'. $support->id) }}" class="btn btn-success btn-sm">Reply</a></td>

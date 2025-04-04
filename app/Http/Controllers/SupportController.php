@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SupportController extends Controller
 {
@@ -58,5 +59,16 @@ class SupportController extends Controller
                 'message' => 'Failed to change support status.'
             ], 500);
         }
+    }
+
+    public function SupportOnOff($id)
+    {
+        $support = DB::table('support')->select('status')->where('id', '=', $id)->first(); // select status from support where id=?
+        $status = 1 - $support->status;
+
+        $values = ['status' => $status];
+        DB::table('support')->where('id', '=', $id)->update($values); // update support set status=? where id=?
+
+        return redirect('admin/support')->with('success', 'Status Successfully Change');
     }
 }
