@@ -297,4 +297,10 @@ class AdminController extends Controller
             return response()->json(['exists' => false]);
         }
     }
+
+    public function GenerateUUID() {
+        $uuid1 = Str::uuid()->toString();
+        $uuid2 = Str::orderedUuid()->toString();
+        echo $uuid1 .'<br>'. $uuid2; 
+    }
 }
