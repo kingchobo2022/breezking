@@ -68,7 +68,7 @@
 			  <div class="d-flex justify-content-between align-items-center flex-wrap">
 				<h4 class="card-title">Support List</h4>
 				<div class="d-flex align-items-center">
-
+					<button class="btn btn-danger" id="btn_delete">Delete</button>
 				</div>
 			  </div>
 			  
@@ -77,6 +77,7 @@
 				<table class="table table-bordered">
 				  <thead>
 					<tr>
+				      <th>Delete</th>		
 					  <th>ID</th>
 					  <th>User Name</th>
 					  <th>Title</th>
@@ -91,6 +92,7 @@
 				  <tbody>
                     @forelse($supports as $support)
                     <tr>
+						<td><input type="checkbox" value="{{ $support->id }}" class="del-all-option"></td>
                         <td>{{ $support->id }}</td>
                         <td>{{ $support->user->name }}</td>
                         <td>{{ $support->title }}</td>
@@ -170,5 +172,19 @@ ChangeSupportSatus.forEach(selectbox => {
 		});
 	});
 });	
+
+const btn_delete = document.getElementById('btn_delete');
+btn_delete.addEventListener('click', () => {
+	if(!confirm('삭제하시겠습니까?')) {
+		return;
+	}
+	let delids = '';
+	document.querySelectorAll('.del-all-option:checked').forEach(checkbox => {
+			delids += checkbox.value + ','; 
+	});
+	self.location.href = "{{ url('admin/support/delete_item_multi?id=') }}" + delids; 
+});	
+
+
 </script>
 @endsection

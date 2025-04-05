@@ -71,4 +71,22 @@ class SupportController extends Controller
 
         return redirect('admin/support')->with('success', 'Status Successfully Change');
     }
+
+    public function SupportDeleteItemMulti(Request $request)
+    {
+        if (empty($request->id)) {
+            return redirect('admin/support')->with('error', 'Data Not Found');
+        }
+
+        $ids = explode(',', $request->id); 
+        foreach ($ids as $id) {
+            if (empty($id)) {
+                continue;
+            }
+            $support = Support::findOrFail($id);
+            $support->delete();
+        }
+
+        return redirect('admin/support')->with('success', 'Support Successfully Delete');
+    }
 }
