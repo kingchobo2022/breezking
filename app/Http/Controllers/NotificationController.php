@@ -9,6 +9,29 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
+    public function NotificationList() {
+        return view('admin.notification.list');
+    }
+
+    public function Notification($type) {
+        switch ($type) {
+            case 'success': 
+                return back()->with('success', 'User created successfully');
+                break;
+            case 'info': 
+                return back()->with('info', 'User Updated successfully');
+                break;
+            case 'warning': 
+                return back()->with('warning', 'User not allowd this page');
+                break;
+            case 'error':
+                return back()->with('error', 'Error occurred');
+                break;
+        }
+    }
+
+
+
     public function NotificationIndex() {
         $users = User::whereIn('role', ['user', 'agent'])->get();
         return view('admin.notification.update', compact('users'));
