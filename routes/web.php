@@ -7,6 +7,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FullCalendarController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
@@ -202,3 +203,6 @@ Route::get('admin/login', [AdminController::class, 'AdminLogin'])->name('admin.l
 Route::get('generate/UUID',[AdminController::class, 'GenerateUUID']);
 Route::get('notification_list', [NotificationController::class, 'NotificationList']);
 Route::get('notification_list/{type}', [NotificationController::class, 'Notification'])->name('notification_list');
+
+Route::get('item/create', [ItemController::class, 'Create']);
+Route::get('item/search', [ItemController::class, 'Search']);
