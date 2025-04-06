@@ -11,6 +11,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductCartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\SendPDFController;
@@ -37,6 +38,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
+
+    Route::get('product_cart', [ProductCartController::class, 'AdminProductList']);
 
     Route::get('support', [SupportController::class, 'Support']);
     Route::get('support/reply/{id}', [SupportController::class, 'Reply']);
