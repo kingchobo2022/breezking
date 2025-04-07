@@ -40,6 +40,9 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
 
     Route::get('product_cart', [ProductCartController::class, 'AdminProductList']);
+    Route::get('product_cart/add', [ProductCartController::class, 'AdminProductCartAdd']);
+    Route::post('product_cart/add', [ProductCartController::class, 'AdminProductCartStore']);
+    
 
     Route::get('support', [SupportController::class, 'Support']);
     Route::get('support/reply/{id}', [SupportController::class, 'Reply']);
