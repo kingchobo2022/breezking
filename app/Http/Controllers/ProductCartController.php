@@ -8,9 +8,33 @@ use Illuminate\Support\Str;
 
 class ProductCartController extends Controller
 {
-    public function AdminProductList()
+    public function AdminProductList(Request $request)
     {
-        return view('admin.product_cart.list');
+        $product_carts = ProductCart::orderBy('id', 'asc');
+
+        if(!empty($request->id)) {
+            $product_carts = $product_carts->where('id', '=', $request->id);
+        }
+
+        if(!empty($request->name)) {
+            $product_carts = $product_carts->where('name', 'like', '%'. $request->name .'%');
+        }
+
+        if(!empty($request->price)) {
+            $product_carts = $product_carts->where('price', 'like', '%'. $request->price .'%');
+        }
+
+        if(!empty($request->created_at)) {
+            $product_carts = $product_carts->where('created_at', 'like', $request->created_at .'%');
+        }
+        if(!empty($request->updated_at)) {
+            $product_carts = $product_carts->where('updated_at', 'like', $request->updated_at .'%');
+        }
+        
+
+        $product_carts = $product_carts->paginate(2);
+
+        return view('admin.product_cart.list', compact('product_carts'));
     }
 
     public function AdminProductCartAdd()
