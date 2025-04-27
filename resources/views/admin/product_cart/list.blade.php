@@ -85,7 +85,13 @@
 					</tr>
 				  </thead>
 				  <tbody>
+@php 
+	$totalPrice = 0;
+@endphp 					
 					@forelse($product_carts as $product_cart)
+				      @php 
+					  	$totalPrice = $totalPrice + $product_cart->price;
+					  @endphp
 					<tr>
 						<td>{{ $product_cart->id }}</td>
 						<td>{{ $product_cart->name }}</td>
@@ -94,13 +100,20 @@
                         <td>{{ number_format($product_cart->price) }}</td>
 						<td>{{ date('Y-m-d H:i', strtotime($product_cart->created_at)) }}</td>
 						<td>{{ date('Y-m-d H:i', strtotime($product_cart->updated_at)) }}</td>
-						<td>~</td>
+						<td>
+							<a href="{{ url('admin/product_cart/edit/'. $product_cart->id) }}" class="btn btn-primary btn-sm">Edit</a>
+						</td>
 					</tr>
 					@empty
 					<tr>
 						<td colspan="100%">Data not found</td>
 					</tr>
 					@endforelse	
+					<tr>
+						<th colspan="4">Total</th>
+						<td>{{ number_format($totalPrice) }}</td>
+						<td colspan="2"></td>
+					</tr>
 				  </tbody>
 				</table>
 			  </div>

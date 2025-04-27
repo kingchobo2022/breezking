@@ -61,4 +61,29 @@ class ProductCartController extends Controller
 
         return redirect('admin/product_cart')->with('success', 'Product Cart Successfully Add');
     }
+
+    public function AdminProductCartEdit($id)
+    {
+        $product_cart = ProductCart::findOrFail($id);
+        return view('admin.product_cart.edit', compact('product_cart'));
+    }
+
+    public function AdminProductCartUpdate(Request $request, $id)
+    {
+        $product_cart = ProductCart::findOrFail($request->id);
+        $product_cart->name = trim($request->name);
+        $product_cart->description = $request->description;
+        $product_cart->price = $request->price;
+
+        if (!empty($request->file('image'))) {
+            $file = $request->file('image');
+            $filenameBody = Str::random(30);
+            $filename = $filenameBody .'.'. $file->getClientOriginalExtension();
+            $file->move('product/', $filename);
+            $product_cart->image = $filename;
+        }
+
+        $product_cart->save();
+        return redirect('admin/product_cart')->with('success', 'Product Cart Successfully Update');
+    }    
 }
