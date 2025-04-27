@@ -44,6 +44,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function(){
     Route::post('product_cart/add', [ProductCartController::class, 'AdminProductCartStore']);
     Route::get('product_cart/edit/{id}', [ProductCartController::class, 'AdminProductCartEdit']);
     Route::post('product_cart/edit/{id}', [ProductCartController::class, 'AdminProductCartUpdate']);
+    Route::delete('product_cart/delete', [ProductCartController::class, 'AdminProductCartDelete']);
     
 
     Route::get('support', [SupportController::class, 'Support']);

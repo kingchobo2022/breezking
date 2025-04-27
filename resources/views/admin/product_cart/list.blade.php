@@ -102,6 +102,7 @@
 						<td>{{ date('Y-m-d H:i', strtotime($product_cart->updated_at)) }}</td>
 						<td>
 							<a href="{{ url('admin/product_cart/edit/'. $product_cart->id) }}" class="btn btn-primary btn-sm">Edit</a>
+							<button class="btn btn-danger btn-sm btn_delete" type="button" data-id="{{ $product_cart->id }}">Delete</button>
 						</td>
 					</tr>
 					@empty
@@ -125,7 +126,27 @@
 		</div>
 	  </div>
 	
-
+<form name="tmp_form" method="post" action="{{ url('admin/product_cart/delete') }}">
+	@csrf
+	@method('delete')
+	<input type="hidden" name="id">
+</form>
 
 </div>	  
+@endsection
+
+@section('script')
+<script>
+const btn_delete = document.querySelectorAll('.btn_delete');
+btn_delete.forEach(btn => {
+	btn.addEventListener('click', (e) => {
+
+		if(!confirm('삭제하시겠습니까?')) {
+			return false;
+		}
+		document.tmp_form.id.value = btn.dataset.id;
+		document.tmp_form.submit();	
+	});
+});
+</script>	
 @endsection
