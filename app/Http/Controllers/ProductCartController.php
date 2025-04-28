@@ -94,4 +94,9 @@ class ProductCartController extends Controller
 
         return redirect('admin/product_cart')->with('success', 'Product Cart Successfully Delete');
     }
+
+    public function Index()
+    {
+        return view('product_cart/products');
+    }
 }

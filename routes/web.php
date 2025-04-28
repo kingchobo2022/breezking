@@ -215,3 +215,5 @@ Route::get('notification_list/{type}', [NotificationController::class, 'Notifica
 
 Route::get('item/create', [ItemController::class, 'Create']);
 Route::get('item/search', [ItemController::class, 'Search']);
+
+Route::get('product_cart', [ProductCartController::class, 'Index']);
