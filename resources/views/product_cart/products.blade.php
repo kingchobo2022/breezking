@@ -65,13 +65,19 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <a href="" class="btn btn-info">View All</a>
+                            <a href="{{ route('cart') }}" class="btn btn-info">View All</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row mt-3">
+            <div class="col-md-10 offset-md-1">
+                @yield('content')
+            </div>
+        </div>
     </div>
+    @yield('script')
 </body>
 
 </html>

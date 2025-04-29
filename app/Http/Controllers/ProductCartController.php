@@ -97,6 +97,11 @@ class ProductCartController extends Controller
 
     public function Index()
     {
-        return view('product_cart/products');
+        return view('product_cart.products');
+    }
+
+    public function Cart()
+    {
+        return view('product_cart.cart');
     }
 }
