@@ -46,24 +46,41 @@
             <div class="col-md-2 text-right main-section">
                 <div class="dropdown">
                     <button class="btn btn-info dropdown-toggle mt-1" data-bs-toggle="dropdown">
-                        <i class="fa fa-shopping-cart"></i> Cart <span class="badge badge-pill badge-danger"> 10</span>
+                        <i class="fa fa-shopping-cart"></i> Cart <span class="badge rounded-pill bg-danger text-white"> {{ count ((array) session('cart')) }}</span>
                     </button>
                     <div class="dropdown-menu">
                         <div class="row total-header-section">
                            <div class="col-lg-6 col-sm-6 col-6">
-                                <i class="fa fa-shopping-cart"><span class="badge badge-pill badge-danger">250</span></i>  
+                                <i class="fa fa-shopping-cart"><span class="badge rounded-pill bg-danger text-white ms-1">{{ count ((array) session('cart')) }}</span></i>  
                            </div> 
+                            @php 
+                                $total = 0;
+                            @endphp
+                            @foreach( (array) session('cart') as $id => $item )
+                                @php 
+                                    $total += ($item['price'] * $item['quantity']);
+                                @endphp 
+                            @endforeach
+
+                            <div class="col-lg-6 col-sm-6 col-6 text-end">
+                                <p><strong>Total : {{ number_format($total) }}원 </strong></p>
+                            </div>
                         </div>
+                        @if(session('cart'))
+                          @foreach( (array) session('cart') as $id => $item )
                         <div class="row cart-detail pb-3 pt-2">
                             <div class="col-lg-4 col-sm-4 col-4">
-                                <img src="product/NXgEYssQre72ehYnSyKEngaBD5uTb7.jpg" alt="" class="img-fluid">
+                                <img src="{{ asset('product/'. $item['image']) }}" alt="" class="img-fluid">
                             </div>
                             <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                                <div class="mb-0">Name</div>
-                                <span class="fs-8 text-info">Price : 122</span> <br>
-                                <span class="fs-8 fw-lighter">Quantity: 12000</span>
+                                <div class="mb-0">{{ $item['name'] }}</div>
+                                <span class="fs-8 text-info">Price : {{ number_format($item['price']) }}원 </span> <br>
+                                <span class="fs-8 fw-lighter">Quantity: {{ $item['quantity'] }}</span>
                             </div>
                         </div>
+                          @endforeach
+                        @endif
+
                         <div class="text-center">
                             <a href="{{ route('cart') }}" class="btn btn-info">View All</a>
                         </div>

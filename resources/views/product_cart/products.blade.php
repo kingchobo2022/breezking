@@ -1,6 +1,9 @@
 @extends('product_cart.layout')
 
 @section('content')
+
+@include('inc_message')
+
 <div class="row mt-4">
     @foreach ($product_carts as $product_cart)
     <div class="col-md-3">
@@ -10,7 +13,7 @@
                 <h4>{{ $product_cart->name }}</h4>
                 <p>{{ $product_cart->description }}</p>
                 <p><strong>Price: </strong>{{ $product_cart->price }}</p>
-                <a href="" class="btn btn-primary btn-sm">Add to cart</a>
+                <a href="{{ route('add.cart', $product_cart->id) }}" class="btn btn-primary btn-sm">Add to cart</a>
             </div>
         </div>
     </div>

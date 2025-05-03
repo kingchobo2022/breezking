@@ -106,4 +106,29 @@ class ProductCartController extends Controller
     {
         return view('product_cart.cart');
     }
+
+    public function AddCart($id)
+    {
+        try {
+            $product_cart = ProductCart::findOrFail($id);
+            $cart = session()->get('cart', []); // 세션 변수 cart의 값을 가져오는데 없으면 빈 배열을 기본값으로 리턴함.
+    
+            if(isset($cart[$id])) {
+                $cart[$id]['quantity'] += 1;   
+            } else {
+                $cart[$id] = [
+                    'name' => $product_cart->name,
+                    'price' => $product_cart->price,
+                    'quantity' => 1,
+                    'image' => $product_cart->image
+                ];
+            }
+    
+            session()->put('cart', $cart);
+    
+            return redirect()->back()->with('success', 'Product Added to cart successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Product not found');
+        }    
+    }
 }
