@@ -97,7 +97,9 @@ class ProductCartController extends Controller
 
     public function Index()
     {
-        return view('product_cart.products');
+        $product_carts = ProductCart::orderBy('id', 'desc')->get();
+
+        return view('product_cart.products', compact('product_carts'));
     }
 
     public function Cart()
