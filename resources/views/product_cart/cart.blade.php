@@ -19,31 +19,41 @@
     </tr>        
     </thead>
     <tbody>
+    @php 
+        $total = 0;
+    @endphp 
+    @if(session('cart'))
+      @foreach( (array) session('cart') as $id => $item )
+        @php 
+          $total += ($item['price'] * $item['quantity']);
+        @endphp
     <tr data-id="">
         <td data-th="Product">
             <div class="row">
                 <div class="col-sm-3 hidden-xs">
-                    <img src="product/NXgEYssQre72ehYnSyKEngaBD5uTb7.jpg" width="100" height="150" class="img-responsive">
+                    <img src="{{ asset('product/'. $item['image']) }}"  width="100" height="100" class="img-responsive">
                 </div>
                 <div class="col-sm-9">
-                    <h4 class="nomargin">Name</h4>
+                    <h4 class="nomargin">{{ $item['name'] }}</h4>
                 </div>
             </div>
         </td>
-        <td data-th="Price">1250</td>
+        <td data-th="Price">{{ number_format($item['price']) }}</td>
         <td data-th="Quantity">
-            <input type="number" value="1" class="form-control quantity update-cart" />
+            <input type="number" value="{{ $item['quantity'] }}" class="form-control quantity update-cart" />
         </td>
-        <td data-th="Subtotal" class="text-center">1250 * 4</td>
+        <td data-th="Subtotal" class="text-center">{{ number_format($item['price'] * $item['quantity']) }} </td>
         <td class="actions" data-th="">
             <button class="btn btn-danger btn-sm remove-from-cart"><i class="fa fa-trash"></i></button>
         </td>
     </tr> 
+      @endforeach
+    @endif
     </tbody>
     <tfoot>
         <tr>
             <td class="text-right" colspan="5">
-                <h3><strong>Total 12220</strong></h3>
+                <h3><strong>Total {{ number_format($total) }}</strong></h3>
             </td>
         </tr>
         <tr>
