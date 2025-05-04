@@ -219,3 +219,4 @@ Route::get('item/search', [ItemController::class, 'Search']);
 Route::get('product_cart', [ProductCartController::class, 'Index']);
 Route::get('cart', [ProductCartController::class, 'Cart'])->name('cart');
 Route::get('add_cart/{id}', [ProductCartController::class, 'AddCart'])->name('add.cart');
+Route::patch('update_cart', [ProductCartController::class, 'UpdateCart'])->name('update.cart');

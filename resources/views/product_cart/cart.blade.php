@@ -27,7 +27,7 @@
         @php 
           $total += ($item['price'] * $item['quantity']);
         @endphp
-    <tr data-id="">
+    <tr data-id="{{ $id }}">
         <td data-th="Product">
             <div class="row">
                 <div class="col-sm-3 hidden-xs">
@@ -69,5 +69,36 @@
 
 @section('script')
 <script>
+document.querySelectorAll('.update-cart').forEach(function(element){
+    element.addEventListener('change', function(e){
+        e.preventDefault();
+
+        const tr = element.closest('tr');
+        const id = tr.getAttribute('data-id');
+        const quantity = element.value;
+
+        fetch("{{ route('update.cart') }}", {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                id: id,
+                quantity: quantity
+            })
+        })
+        .then(function (response) {
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.error('Server error');
+            }
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
+    });    
+});    
 </script>
 @endsection
