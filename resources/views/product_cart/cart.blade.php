@@ -100,5 +100,40 @@ document.querySelectorAll('.update-cart').forEach(function(element){
         });
     });    
 });    
+
+document.querySelectorAll('.remove-from-cart').forEach(function(element){
+    element.addEventListener('click', function(e){
+        e.preventDefault();
+
+        // Guard Clause Pattern.
+        if(!confirm('Are you sure you want to remove this item?')) {
+            return;
+        }
+
+        const tr = element.closest('tr');
+        const id = tr.getAttribute('data-id');
+ 
+        fetch("{{ route('remove.cart') }}", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        })
+        .then(function (response) {
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.error('Server error');
+            }
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
+    });    
+});    
 </script>
 @endsection

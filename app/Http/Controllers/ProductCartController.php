@@ -141,4 +141,24 @@ class ProductCartController extends Controller
             session()->flash('success', 'Cart updated successfully');
         }
     }
+
+    public function RemoveCart(Request $request)
+    {
+        // Guard Clause Pattern.
+
+        if (!$request->id) {
+            return;
+        }
+        
+        $cart = session()->get('cart', []);
+
+        if(isset($cart[$request->id])) {
+            unset($cart[$request->id]);
+            session()->put('cart', $cart);
+        }
+        
+        session()->flash('success', 'Cart item removed successfully');
+
+    }
+    
 }
